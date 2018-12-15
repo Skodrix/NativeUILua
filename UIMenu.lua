@@ -1172,14 +1172,14 @@ function UIMenu:UpdateScaleform()
 	PushScaleformMovieFunction(self.InstructionalScaleform, "SET_DATA_SLOT")
 	PushScaleformMovieFunctionParameterInt(0)
 	PushScaleformMovieFunctionParameterString(GetControlInstructionalButton(2, 176, 0))
-	PushScaleformMovieFunctionParameterString("Select")
+	PushScaleformMovieFunctionParameterString(GetLabelText("HUD_INPUT2"))
 	PopScaleformMovieFunction()
 
 	if self.Controls.Back.Enabled then
 		PushScaleformMovieFunction(self.InstructionalScaleform, "SET_DATA_SLOT")
 		PushScaleformMovieFunctionParameterInt(1)
 		PushScaleformMovieFunctionParameterString(GetControlInstructionalButton(2, 177, 0))
-		PushScaleformMovieFunctionParameterString("Back")
+		PushScaleformMovieFunctionParameterString(GetLabelText("HUD_INPUT3"))
 		PopScaleformMovieFunction()
     	end
 
