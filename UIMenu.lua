@@ -331,6 +331,7 @@ function UIMenu:AddItem(Item)
 	if Item() == "UIMenuItem" then
 		local SelectedItem = self:CurrentSelection()
 		Item:SetParentMenu(self)
+
 		Item:Offset(self.Position.X, self.Position.Y)
 		Item:Position((#self.Items * 25) - 37 + self.Subtitle.ExtraY)
 		table.insert(self.Items, Item)

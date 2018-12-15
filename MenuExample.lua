@@ -82,11 +82,22 @@ function AddMenuAnotherMenu(menu)
     end
 end
 
+function DebugItem(menu)
+    local newitem = UIMenuColouredItem.New("Validé", "Alo super", Colours.LowFlowDark, Colours.DegenRed)
+    menu:AddItem(newitem)
+    menu.OnItemSelect = function(sender, item, index)
+        if item == newitem then
+            ShowNotification('ALO TA VALIDEY RHEY')
+        end
+    end
+end
+
 AddMenuKetchup(mainMenu)
 AddMenuFoods(mainMenu)
 AddMenuFoodCount(mainMenu)
 AddMenuCook(mainMenu)
 AddMenuAnotherMenu(mainMenu)
+DebugItem(mainMenu)
 _menuPool:RefreshIndex()
 
 Citizen.CreateThread(function()
