@@ -2,7 +2,7 @@ ketchup = false
 dish = "Banana"
 quantity = 1
 _menuPool = MenuPool.New()
-mainMenu = UIMenu.New("Native UI", "~b~NATIVEUI SHOWCASE")
+mainMenu = UIMenu.New("Native UI", "~b~NATIVEUI SHOWCASE", 120.0, 150.0, nil, nil, nil, 255, 255, 255, 150)
 _menuPool:Add(mainMenu)
 
 local MonHeritage = {}
@@ -34,7 +34,7 @@ local heritage = {
     Dad = 0,
 }
 function AddMenuHeritageUI(menu)
-    local submenu = _menuPool:AddSubMenu(menu, "Heritage")
+    local submenu = _menuPool:AddSubMenu(menu, "Heritage", "subdesc")
     local heritageWindow = UIMenuHeritageWindow.New(0, 0)
     local momSelect = UIMenuListItem.New(GetLabelText("FACE_MUMS"), MonHeritage, 0)
     local dadSelect = UIMenuListItem.New(GetLabelText("FACE_DADS"), DadHeritage, 0)
