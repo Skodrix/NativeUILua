@@ -7,14 +7,13 @@ _menuPool:Add(mainMenu)
 
 local MonHeritage = {}
 for i = 0, 20 do
-    table.insert(MonHeritage, { Name = 'Mon - ' .. i, Value = i })
+    table.insert(MonHeritage, { Name = GetLabelText("FACE_MUMS") .. ' - ' .. i, Value = i })
 end
 
 local DadHeritage = {}
 for i = 0, 22 do
-    table.insert(DadHeritage, { Name = 'Dad - ' .. i, Value = i })
+    table.insert(DadHeritage, { Name = GetLabelText("FACE_DADS") .. ' - ' .. i, Value = i })
 end
-
 
 function ShowNotification(text)
     SetNotificationTextEntry("STRING")
@@ -36,21 +35,21 @@ local heritage = {
 }
 function AddMenuHeritageUI(menu)
     local submenu = _menuPool:AddSubMenu(menu, "Heritage")
-    local heritageWindow = UIMenuHeritageWindow.New(heritage.Mom, heritage.Dad)
+    local heritageWindow = UIMenuHeritageWindow.New(0, 0)
     local momSelect = UIMenuListItem.New(GetLabelText("FACE_MUMS"), MonHeritage, 0)
     local dadSelect = UIMenuListItem.New(GetLabelText("FACE_DADS"), DadHeritage, 0)
     submenu:AddWindow(heritageWindow)
     submenu:AddItem(momSelect)
     momSelect.OnListChanged = function(ParentMenu, SelectedItem, Index)
-        heritage.Mon = Index
+        heritage.Mom = Index
         heritageWindow:Index(heritage.Mom, heritage.Dad)
-        ShowText('Mom : ' .. heritage.Mon .. ' -  Dad : ' .. heritage.Dad..'')
+        ShowText('Mom : ' .. heritage.Mom .. ' -  Dad : ' .. heritage.Dad .. '')
     end
     submenu:AddItem(dadSelect)
     dadSelect.OnListChanged = function(ParentMenu, SelectedItem, Index)
         heritage.Dad = Index
         heritageWindow:Index(heritage.Mom, heritage.Dad)
-        ShowText('Mom : ' .. heritage.Mon .. ' -  Dad : ' .. heritage.Dad..'')
+        ShowText('Mom : ' .. heritage.Mom .. ' -  Dad : ' .. heritage.Dad .. '')
     end
 end
 
