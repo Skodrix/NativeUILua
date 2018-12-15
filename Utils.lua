@@ -48,6 +48,19 @@ function IsMouseInBounds(X, Y, Width, Height)
 	return (MX >= X and MX <= X + Width) and (MY > Y and MY < Y + Height)
 end
 
+function TableDump(o)
+	if type(o) == 'table' then
+		local s = '{ '
+		for k,v in pairs(o) do
+			if type(k) ~= 'number' then k = '"'..k..'"' end
+			s = s .. '['..k..'] = ' .. TableDump(v) .. ','
+		end
+		return s .. '} '
+	else
+		return tostring(o)
+	end
+end
+
 function GetSafeZoneBounds()
 	local SafeSize = GetSafeZoneSize()
 	SafeSize = math.round(SafeSize, 2)

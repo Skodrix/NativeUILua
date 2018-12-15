@@ -9,11 +9,11 @@ function UIMenuSliderItem.New(Text, Items, Index, Description, Divider)
 		Base = UIMenuItem.New(Text or "", Description or ""),
 		Items = Items,
 		ShowDivider = tobool(Divider),
-		LeftArrow = Sprite.New("commonmenutu", "arrowleft", 0, 105, 15, 15),
-		RightArrow = Sprite.New("commonmenutu", "arrowright", 0, 105, 15, 15),
-		Background = UIResRectangle.New(0, 0, 150, 9, 4, 32, 57, 255),
-		Slider = UIResRectangle.New(0, 0, 75, 9, 57, 116, 200, 255),
-		Divider = UIResRectangle.New(0, 0, 2.5, 20, 245, 245, 245, 255),
+		LeftArrow = Sprite.New("commonmenu", "arrowleft", 0, 105, 25, 25),
+		RightArrow = Sprite.New("commonmenu", "arrowright", 0, 105, 25, 25),
+		Background = UIResRectangle.New(0, 0, 150, 10, 4, 32, 57, 255),
+		Slider = UIResRectangle.New(0, 0, 75, 10, 57, 119, 200, 255),
+		Divider = UIResRectangle.New(0, 0, 4, 20, 255, 255, 255, 255),
 		_Index = tonumber(Index) or 1,
 		OnSliderChanged = function(menu, item, newindex) end,
 		OnSliderSelected = function(menu, item, newindex) end,
@@ -34,8 +34,8 @@ function UIMenuSliderItem:Position(Y)
 		self.Background:Position(250 + self.Base._Offset.X + self.Base.ParentMenu.WidthOffset, Y + 158.5 + self.Base._Offset.Y)
 		self.Slider:Position(250 + self.Base._Offset.X + self.Base.ParentMenu.WidthOffset, Y + 158.5 + self.Base._Offset.Y)
 		self.Divider:Position(323.5 + self.Base._Offset.X + self.Base.ParentMenu.WidthOffset, Y + 153 + self.Base._Offset.Y)
-		self.LeftArrow:Position(235 + self.Base._Offset.X + self.Base.ParentMenu.WidthOffset, 155.5 + Y + self.Base._Offset.Y)
-		self.RightArrow:Position(400 + self.Base._Offset.X + self.Base.ParentMenu.WidthOffset, 155.5 + Y + self.Base._Offset.Y)
+		self.LeftArrow:Position(225 + self.Base._Offset.X + self.Base.ParentMenu.WidthOffset, 150.5 + Y + self.Base._Offset.Y)
+		self.RightArrow:Position(400 + self.Base._Offset.X + self.Base.ParentMenu.WidthOffset, 150.5 + Y + self.Base._Offset.Y)
 		self.Base:Position(Y)
 	end
 end

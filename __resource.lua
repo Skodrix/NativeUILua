@@ -13,6 +13,7 @@ client_scripts {
   "elements/StringMeasurer.lua",
   "elements/Badge.lua",
   "elements/Colours.lua",
+  "elements/ColoursPanel.lua",
   "items/UIMenuItem.lua",
   "items/UIMenuCheckboxItem.lua",
   "items/UIMenuListItem.lua",

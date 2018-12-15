@@ -18,57 +18,31 @@ _menuPool = MenuPool.New()
 mainMenu = UIMenu.New("Native UI", "~b~NATIVEUI SHOWCASE", nil, nil, nil, nil, nil, 255, 255, 255, 255)
 _menuPool:Add(mainMenu)
 
-local MonHeritage = {}
-for i = 0, 20 do
-    table.insert(MonHeritage, { Name = GetLabelText("FACE_MUMS") .. ' - ' .. i, Value = i })
-end
 
-local DadHeritage = {}
-for i = 0, 22 do
-    table.insert(DadHeritage, { Name = GetLabelText("FACE_DADS") .. ' - ' .. i, Value = i })
-end
-
-local MixAmount = {}
-for i = 1, 9 do
-    table.insert(MixAmount, { Value = tonumber("0." .. i) })
-end
-
-local heritage = {
-    Mom = 0,
-    Dad = 0,
-}
-function AddMenuHeritageUI(menu)
-    local submenu = _menuPool:AddSubMenu(menu, "Heritage", "subdesc", true, true)
-    local heritageWindow = UIMenuHeritageWindow.New(0, 0)
-    local momSelect = UIMenuListItem.New(GetLabelText("FACE_MUMS"), MonHeritage, 0)
-    local dadSelect = UIMenuListItem.New(GetLabelText("FACE_DADS"), DadHeritage, 0)
-
-    local resSlider = UIMenuSliderHeritageItem.New("Ressemblance", MixAmount, 0, "")
-    local skinSlider = UIMenuSliderHeritageItem.New("Teinte", MixAmount, 0, "")
-
-    submenu:AddWindow(heritageWindow)
-    submenu:AddItem(momSelect)
-    submenu:AddItem(dadSelect)
-    submenu:AddItem(resSlider)
-    submenu:AddItem(skinSlider)
-
-    momSelect.OnListChanged = function(ParentMenu, SelectedItem, Index)
-        heritage.Mom = Index
-        heritageWindow:Index(heritage.Mom, heritage.Dad)
-        ShowText('Mom : ' .. heritage.Mom .. ' -  Dad : ' .. heritage.Dad .. '')
-    end
-    dadSelect.OnListChanged = function(ParentMenu, SelectedItem, Index)
-        heritage.Dad = Index
-        heritageWindow:Index(heritage.Mom, heritage.Dad)
-        ShowText('Mom : ' .. heritage.Mom .. ' -  Dad : ' .. heritage.Dad .. '')
-    end
-    resSlider.OnSliderChanged = function(ParentMenu, SelectedItem, Index)
-        ShowText("Ressemblance : " .. Index)
-    end
-    skinSlider.OnSliderChanged = function(ParentMenu, SelectedItem, Index)
-        ShowText("Teinte : " .. Index)
+function DefaultItem(menu)
+    local newitem = UIMenuListItem.New("Panel Elements", { "Showcase" }, 1)
+    local opacityPanel = UIMenuPercentagePanel.New("0%", "Opacity", "100%")
+    local colourPanel = UIMenuColourPanel.New("Colors Pickup", ColoursPanel.HairCut)
+    local gridPanel = UIMenuGridPanel.New()
+    newitem:AddPanel(opacityPanel)
+    opacityPanel:Percentage(0.0)
+    newitem:AddPanel(colourPanel)
+    newitem:AddPanel(gridPanel)
+    menu:AddItem(newitem)
+    newitem.OnListChanged = function(ParentMenu, SelectedItem, Index)
+        local ActiveItem = SelectedItem:IndexToItem(Index)
+        local PanelItem = {
+            opacity = (ActiveItem.Panels and ActiveItem.Panels[1] or 0.0),
+            colors = (ActiveItem.Panels and ActiveItem.Panels[2] or 1),
+            grids = {
+                x = (ActiveItem.Panels and ActiveItem.Panels[3]).X,
+                y = (ActiveItem.Panels and ActiveItem.Panels[3]).Y,
+            },
+        }
+        ShowText("~b~Selected opacity : ".. PanelItem.opacity .."\n ~o~Selected colors : ".. PanelItem.colors .."\n ~r~GridPanel : X = ".. PanelItem.grids.x .." -  Y = "..PanelItem.grids.y .."")
     end
 end
+
 
 
 function AddMenuKetchup(menu)
@@ -103,7 +77,7 @@ end
 
 function AddMenuFoodCount(menu)
     local amount = {}
-    for i = 1, 100 do amount[i] = i end
+    for i = 1, 10 do amount[i] = i end
     local newitem = UIMenuSliderItem.New("Quantity", amount, 1, false)
     menu:AddItem(newitem)
     menu.OnSliderChange = function(sender, item, index)
@@ -135,32 +109,68 @@ function AddMenuCook(menu)
     end
 end
 
-function AddMenuColouredItem(menu)
-    local newitem = UIMenuColouredItem.New("Coloured Item", "Sample description...", { R = 0, G = 180, B = 0, A = 40 }, { R = 0, G = 180, B = 0, A = 100 })
-    menu:AddItem(newitem)
-    menu.OnItemSelect = function(sender, item, index)
-        if item == newitem then
-            ShowNotification('ALO TA VALIDEY RHEY')
-        end
-    end
-end
-
 function AddMenuAnotherMenu(menu)
     local submenu = _menuPool:AddSubMenu(menu, "Another Menu", true, true)
     for i = 1, 20, 1 do
-        submenu:AddItem(UIMenuItem.New("#" .. i .. " PageFiller", "Sample description that takes more than one line. Moreso, it takes way more than two lines since it's so long. Wow, check out this length!"))
+        submenu:AddItem(UIMenuColouredItem.New("#" .. i .. " PageFiller", "Sample description that takes more than one line. Moreso, it takes way more than two lines since it's so long. Wow, check out this length!", { R = 0, G = 180, B = 0, A = 40 }, { R = 0, G = 180, B = 0, A = 100 }))
     end
 end
 
 
+function AddMenuHeritageUI(menu)
+    local MonHeritage = {}
+    for i = 0, 20 do
+        table.insert(MonHeritage, { Name = GetLabelText("FACE_MUMS") .. ' - ' .. i, Value = i })
+    end
+    local DadHeritage = {}
+    for i = 0, 22 do
+        table.insert(DadHeritage, { Name = GetLabelText("FACE_DADS") .. ' - ' .. i, Value = i })
+    end
+    local MixAmount = {}
+    for i = 1, 9 do
+        table.insert(MixAmount, { Value = tonumber("0." .. i) })
+    end
+    local heritage = {
+        Mom = 0,
+        Dad = 0,
+    }
+    local submenu = _menuPool:AddSubMenu(menu, "Heritage UI", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut la...", true, true)
+    local heritageWindow = UIMenuHeritageWindow.New(0, 0)
+    local momSelect = UIMenuListItem.New(GetLabelText("FACE_MUMS"), MonHeritage, 0)
+    local dadSelect = UIMenuListItem.New(GetLabelText("FACE_DADS"), DadHeritage, 0)
+    local resSlider = UIMenuSliderHeritageItem.New("Ressemblance", MixAmount, 0, "")
+    local skinSlider = UIMenuSliderHeritageItem.New("Teinte", MixAmount, 0, "")
+    submenu:AddWindow(heritageWindow)
+    submenu:AddItem(momSelect)
+    submenu:AddItem(dadSelect)
+    submenu:AddItem(resSlider)
+    submenu:AddItem(skinSlider)
+    momSelect.OnListChanged = function(ParentMenu, SelectedItem, Index)
+        heritage.Mom = Index
+        heritageWindow:Index(heritage.Mom, heritage.Dad)
+        ShowText('Mom : ' .. heritage.Mom .. ' -  Dad : ' .. heritage.Dad .. '')
+    end
+    dadSelect.OnListChanged = function(ParentMenu, SelectedItem, Index)
+        heritage.Dad = Index
+        heritageWindow:Index(heritage.Mom, heritage.Dad)
+        ShowText('Mom : ' .. heritage.Mom .. ' -  Dad : ' .. heritage.Dad .. '')
+    end
+    resSlider.OnSliderChanged = function(ParentMenu, SelectedItem, Index)
+        ShowText("Ressemblance : " .. Index)
+    end
+    skinSlider.OnSliderChanged = function(ParentMenu, SelectedItem, Index)
+        ShowText("Teinte : " .. Index)
+    end
+end
 
-AddMenuHeritageUI(mainMenu)
+
+DefaultItem(mainMenu)
 AddMenuKetchup(mainMenu)
 AddMenuFoods(mainMenu)
 AddMenuFoodCount(mainMenu)
 AddMenuCook(mainMenu)
-AddMenuColouredItem(mainMenu)
 AddMenuAnotherMenu(mainMenu)
+AddMenuHeritageUI(mainMenu)
 _menuPool:RefreshIndex()
 
 Citizen.CreateThread(function()
