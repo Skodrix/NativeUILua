@@ -17,6 +17,7 @@ client_scripts {
   "items/UIMenuCheckboxItem.lua",
   "items/UIMenuListItem.lua",
   "items/UIMenuSliderItem.lua",
+  "items/UIMenuSliderHeritageItem.lua",
   "items/UIMenuColouredItem.lua",
   "items/UIMenuprogressItem.lua",
   "windows/UIMenuHeritageWindow.lua",

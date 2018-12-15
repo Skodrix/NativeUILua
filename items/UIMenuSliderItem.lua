@@ -151,7 +151,7 @@ function UIMenuSliderItem:Draw()
 		self.LeftArrow:Colour(163, 159, 148, 255)
 		self.RightArrow:Colour(163, 159, 148, 255)
 	end
-	
+
 	local Offset = ((self.Background.Width - self.Slider.Width)/(#self.Items - 1)) * (self._Index-1)
 
 	self.Slider:Position(250 + self.Base._Offset.X + Offset + self.Base.ParentMenu.WidthOffset, self.Slider.Y)

@@ -1,20 +1,3 @@
-ketchup = false
-dish = "Banana"
-quantity = 1
-_menuPool = MenuPool.New()
-mainMenu = UIMenu.New("Native UI", "~b~NATIVEUI SHOWCASE", 120.0, 150.0, nil, nil, nil, 255, 255, 255, 150)
-_menuPool:Add(mainMenu)
-
-local MonHeritage = {}
-for i = 0, 20 do
-    table.insert(MonHeritage, { Name = GetLabelText("FACE_MUMS") .. ' - ' .. i, Value = i })
-end
-
-local DadHeritage = {}
-for i = 0, 22 do
-    table.insert(DadHeritage, { Name = GetLabelText("FACE_DADS") .. ' - ' .. i, Value = i })
-end
-
 function ShowNotification(text)
     SetNotificationTextEntry("STRING")
     AddTextComponentString(text)
@@ -28,28 +11,62 @@ function ShowText(text)
     DrawSubtitleTimed(6000, 1)
 end
 
+ketchup = false
+dish = "Banana"
+quantity = 1
+_menuPool = MenuPool.New()
+mainMenu = UIMenu.New("Native UI", "~b~NATIVEUI SHOWCASE", nil, nil, nil, nil, nil, 255, 255, 255, 255)
+_menuPool:Add(mainMenu)
+
+local MonHeritage = {}
+for i = 0, 20 do
+    table.insert(MonHeritage, { Name = GetLabelText("FACE_MUMS") .. ' - ' .. i, Value = i })
+end
+
+local DadHeritage = {}
+for i = 0, 22 do
+    table.insert(DadHeritage, { Name = GetLabelText("FACE_DADS") .. ' - ' .. i, Value = i })
+end
+
+local MixAmount = {}
+for i = 1, 9 do
+    table.insert(MixAmount, { Value = tonumber("0." .. i) })
+end
 
 local heritage = {
     Mom = 0,
     Dad = 0,
 }
 function AddMenuHeritageUI(menu)
-    local submenu = _menuPool:AddSubMenu(menu, "Heritage", "subdesc")
+    local submenu = _menuPool:AddSubMenu(menu, "Heritage", "subdesc", true, true)
     local heritageWindow = UIMenuHeritageWindow.New(0, 0)
     local momSelect = UIMenuListItem.New(GetLabelText("FACE_MUMS"), MonHeritage, 0)
     local dadSelect = UIMenuListItem.New(GetLabelText("FACE_DADS"), DadHeritage, 0)
+
+    local resSlider = UIMenuSliderHeritageItem.New("Ressemblance", MixAmount, 0, "")
+    local skinSlider = UIMenuSliderHeritageItem.New("Teinte", MixAmount, 0, "")
+
     submenu:AddWindow(heritageWindow)
     submenu:AddItem(momSelect)
+    submenu:AddItem(dadSelect)
+    submenu:AddItem(resSlider)
+    submenu:AddItem(skinSlider)
+
     momSelect.OnListChanged = function(ParentMenu, SelectedItem, Index)
         heritage.Mom = Index
         heritageWindow:Index(heritage.Mom, heritage.Dad)
         ShowText('Mom : ' .. heritage.Mom .. ' -  Dad : ' .. heritage.Dad .. '')
     end
-    submenu:AddItem(dadSelect)
     dadSelect.OnListChanged = function(ParentMenu, SelectedItem, Index)
         heritage.Dad = Index
         heritageWindow:Index(heritage.Mom, heritage.Dad)
         ShowText('Mom : ' .. heritage.Mom .. ' -  Dad : ' .. heritage.Dad .. '')
+    end
+    resSlider.OnSliderChanged = function(ParentMenu, SelectedItem, Index)
+        ShowText("Ressemblance : " .. Index)
+    end
+    skinSlider.OnSliderChanged = function(ParentMenu, SelectedItem, Index)
+        ShowText("Teinte : " .. Index)
     end
 end
 
@@ -129,7 +146,7 @@ function AddMenuColouredItem(menu)
 end
 
 function AddMenuAnotherMenu(menu)
-    local submenu = _menuPool:AddSubMenu(menu, "Another Menu")
+    local submenu = _menuPool:AddSubMenu(menu, "Another Menu", true, true)
     for i = 1, 20, 1 do
         submenu:AddItem(UIMenuItem.New("#" .. i .. " PageFiller", "Sample description that takes more than one line. Moreso, it takes way more than two lines since it's so long. Wow, check out this length!"))
     end

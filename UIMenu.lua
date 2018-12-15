@@ -16,7 +16,7 @@ function UIMenu.New(Title, Subtitle, X, Y, TxtDictionary, TxtName, Heading, R, G
     local _UIMenu = {
         Logo = Sprite.New(TxtDictionary, TxtName, 0 + X, 0 + Y, 431, 107, Heading, R, G, B, A),
         Banner = nil,
-        Title = UIResText.New(Title, 215 + X, 20 + Y, 1.15, 255, 255, 255, 255, 1, 1, 1),
+        Title = UIResText.New(Title, 215 + X, 20 + Y, 1.15, 255, 255, 255, 255, 1, 1, 0),
         Subtitle = { ExtraY = 0 },
         WidthOffset = 0,
         Position = { X = X, Y = Y },
@@ -661,7 +661,7 @@ end
 
 function UIMenu:GoLeft()
     local type, subtype = self.Items[self:CurrentSelection()]()
-    if subtype ~= "UIMenuListItem" and subtype ~= "UIMenuSliderItem" and subtype ~= "UIMenuProgressItem" then
+    if subtype ~= "UIMenuListItem" and subtype ~= "UIMenuSliderItem" and subtype ~= "UIMenuProgressItem" and subtype ~= "UIMenuSliderHeritageItem" then
         return
     end
 
@@ -688,12 +688,18 @@ function UIMenu:GoLeft()
         self.OnProgressChange(self, Item, Item.Data.Index)
         Item.OnProgressChanged(self, Item, Item.Data.Index)
         PlaySoundFrontend(-1, self.Settings.Audio.LeftRight, self.Settings.Audio.Library, true)
+    elseif subtype == "UIMenuSliderHeritageItem" then
+        local Item = self.Items[self:CurrentSelection()]
+        Item:Index(Item._Index - 1)
+        self.OnSliderChange(self, Item, Item:Index())
+        Item.OnSliderChanged(self, Item, Item._Index)
+        PlaySoundFrontend(-1, self.Settings.Audio.LeftRight, self.Settings.Audio.Library, true)
     end
 end
 
 function UIMenu:GoRight()
     local type, subtype = self.Items[self:CurrentSelection()]()
-    if subtype ~= "UIMenuListItem" and subtype ~= "UIMenuSliderItem" and subtype ~= "UIMenuProgressItem" then
+    if subtype ~= "UIMenuListItem" and subtype ~= "UIMenuSliderItem" and subtype ~= "UIMenuProgressItem" and subtype ~= "UIMenuSliderHeritageItem" then
         return
     end
 
@@ -719,6 +725,12 @@ function UIMenu:GoRight()
         Item:Index(Item.Data.Index + 1)
         self.OnProgressChange(self, Item, Item.Data.Index)
         Item.OnProgressChanged(self, Item, Item.Data.Index)
+        PlaySoundFrontend(-1, self.Settings.Audio.LeftRight, self.Settings.Audio.Library, true)
+    elseif subtype == "UIMenuSliderHeritageItem" then
+        local Item = self.Items[self:CurrentSelection()]
+        Item:Index(Item._Index + 1)
+        self.OnSliderChange(self, Item, Item:Index())
+        Item.OnSliderChanged(self, Item, Item._Index)
         PlaySoundFrontend(-1, self.Settings.Audio.LeftRight, self.Settings.Audio.Library, true)
     end
 end
@@ -747,6 +759,10 @@ function UIMenu:SelectItem()
         PlaySoundFrontend(-1, self.Settings.Audio.Select, self.Settings.Audio.Library, true)
         self.OnProgressSelect(self, Item, Item.Data.Index)
         Item.OnProgressSelected(Item.Data.Index)
+    elseif subtype == "UIMenuSliderHeritageItem" then
+        PlaySoundFrontend(-1, self.Settings.Audio.Select, self.Settings.Audio.Library, true)
+        self.OnSliderSelect(self, Item, Item._Index)
+        Item.OnSliderSelected(Item._Index)
     else
         PlaySoundFrontend(-1, self.Settings.Audio.Select, self.Settings.Audio.Library, true)
         self.OnItemSelect(self, Item, self:CurrentSelection())
@@ -990,6 +1006,17 @@ function UIMenu:ProcessMouse()
                                 elseif not IsMouseInBounds(Item.LeftArrow.X + SafeZone.X, Item.LeftArrow.Y + SafeZone.Y, Item.LeftArrow.Width, Item.LeftArrow.Height) then
                                     self:SelectItem()
                                 end
+                            elseif SubType == "UIMenuSliderHeritageItem" then
+                                if IsMouseInBounds(Item.LeftArrow.X + SafeZone.X, Item.LeftArrow.Y + SafeZone.Y, Item.LeftArrow.Width, Item.LeftArrow.Height) then
+                                    self:GoLeft()
+                                elseif not IsMouseInBounds(Item.RightArrow.X + SafeZone.X, Item.RightArrow.Y + SafeZone.Y, Item.RightArrow.Width, Item.RightArrow.Height) then
+                                    self:SelectItem()
+                                end
+                                if IsMouseInBounds(Item.RightArrow.X + SafeZone.X, Item.RightArrow.Y + SafeZone.Y, Item.RightArrow.Width, Item.RightArrow.Height) then
+                                    self:GoRight()
+                                elseif not IsMouseInBounds(Item.LeftArrow.X + SafeZone.X, Item.LeftArrow.Y + SafeZone.Y, Item.LeftArrow.Width, Item.LeftArrow.Height) then
+                                    self:SelectItem()
+                                end
                             elseif SubType == "UIMenuProgressItem" then
                                 if IsMouseInBounds(Item.Bar.X + SafeZone.X, Item.Bar.Y + SafeZone.Y - 12, Item.Data.Max, Item.Bar.Height + 24) then
                                     Item:CalculateProgress(math.round(GetControlNormal(0, 239) * 1920) - SafeZone.X)
@@ -1021,6 +1048,13 @@ function UIMenu:ProcessMouse()
                                         self:GoRight()
                                     end
                                 elseif SubType == "UIMenuSliderItem" then
+                                    if IsMouseInBounds(Item.LeftArrow.X + SafeZone.X, Item.LeftArrow.Y + SafeZone.Y, Item.LeftArrow.Width, Item.LeftArrow.Height) then
+                                        self:GoLeft()
+                                    end
+                                    if IsMouseInBounds(Item.RightArrow.X + SafeZone.X, Item.RightArrow.Y + SafeZone.Y, Item.RightArrow.Width, Item.RightArrow.Height) then
+                                        self:GoRight()
+                                    end
+                                elseif SubType == "UIMenuSliderHeritageItem" then
                                     if IsMouseInBounds(Item.LeftArrow.X + SafeZone.X, Item.LeftArrow.Y + SafeZone.Y, Item.LeftArrow.Width, Item.LeftArrow.Height) then
                                         self:GoLeft()
                                     end
