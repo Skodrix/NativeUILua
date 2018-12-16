@@ -20,7 +20,7 @@ _menuPool:Add(mainMenu)
 
 
 function DefaultItem(menu)
-    local newitem = UIMenuListItem.New("Panel Elements", { "Showcase" }, 1)
+    local newitem = UIMenuListItem.New("Panel Elements", { "Exemple" }, 1)
     local opacityPanel = UIMenuPercentagePanel.New("0%", "Opacity", "100%")
     local colourPanel = UIMenuColourPanel.New("Colors Pickup", ColoursPanel.HairCut)
     local gridPanel = UIMenuGridPanel.New()
@@ -32,11 +32,11 @@ function DefaultItem(menu)
     newitem.OnListChanged = function(ParentMenu, SelectedItem, Index)
         local ActiveItem = SelectedItem:IndexToItem(Index)
         local PanelItem = {
-            opacity = (ActiveItem.Panels and ActiveItem.Panels[1] or 0.0),
-            colors = (ActiveItem.Panels and ActiveItem.Panels[2] or 1),
+            opacity = (ActiveItem.Panels and ActiveItem.Panels[1] or 0.0) or 0.0,
+            colors = (ActiveItem.Panels and ActiveItem.Panels[2] or 1) or 1,
             grids = {
-                x = (ActiveItem.Panels and ActiveItem.Panels[3].X or 0.0),
-                y = (ActiveItem.Panels and ActiveItem.Panels[3].Y or 0.0),
+                x = (ActiveItem.Panels and ActiveItem.Panels[3].X) or 0.0,
+                y = (ActiveItem.Panels and ActiveItem.Panels[3].Y) or 0.0,
             },
         }
         ShowText("~b~Selected opacity : ".. PanelItem.opacity .."\n ~o~Selected colors : ".. PanelItem.colors .."\n ~r~GridPanel : X = ".. PanelItem.grids.x .." -  Y = "..PanelItem.grids.y .."")
@@ -51,7 +51,7 @@ function AddMenuKetchup(menu)
     menu.OnCheckboxChange = function(sender, item, checked_)
         if item == newitem then
             ketchup = checked_
-            ShowNotification("~r~Ketchup status: ~b~" .. tostring(ketchup))
+            ShowText("~r~Ketchup status: ~b~" .. tostring(ketchup))
         end
     end
 end

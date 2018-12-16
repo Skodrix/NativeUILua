@@ -405,12 +405,10 @@ end
 
 function UIMenu:DrawCalculations()
     local WindowHeight = self:CalculateWindowHeight()
-
     if self.Settings.MultilineFormats then
         if self.Subtitle.Rectangle and not self.Subtitle.Formatted then
             self.Subtitle.Formatted = true
             self.Subtitle.Text:Text(self:MultilineFormat(self.Subtitle.Text:Text()))
-
             local Linecount = #string.split(self.Subtitle.Text:Text(), "\n")
             self.Subtitle.ExtraY = ((Linecount == 1) and 37 or ((Linecount + 1) * 22))
             self.Subtitle.Rectangle:Size(431 + self.WidthOffset, self.Subtitle.ExtraY)
@@ -603,7 +601,6 @@ function UIMenu:GoUpOverflow()
     if #self.Items <= self.Pagination.Total + 1 then
         return
     end
-
     if self:CurrentSelection() <= self.Pagination.Min + 1 then
         if self:CurrentSelection() == 1 then
             self.Pagination.Min = #self.Items - (self.Pagination.Total + 1)
@@ -729,6 +726,7 @@ function UIMenu:GoLeft()
                 Item.Pressed = false
             end)
         end
+
     end
 end
 
@@ -776,6 +774,7 @@ function UIMenu:GoRight()
                 Item.Pressed = false
             end)
         end
+
     end
 end
 

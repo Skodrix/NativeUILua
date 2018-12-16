@@ -11,6 +11,8 @@ end
 function MenuPool:AddSubMenu(Menu, Text, Description, KeepPosition, KeepBanner)
     if Menu() == "UIMenu" then
         local Item = UIMenuItem.New(tostring(Text), Description or "")
+        --Item:SetLeftBadge(BadgeStyle.Ammo)
+    -- TODO Add systeme for dynamical add badge / text right / left
         Menu:AddItem(Item)
         local SubMenu
         if KeepPosition then
