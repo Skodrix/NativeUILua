@@ -16,6 +16,7 @@ CETTE VERSION CONTIENT EN PLUS DE LA VERSION ORIGINALE :
 - Modifications de certains bruits sonores du menu lors de l'utilisation des sliders.
 - Modification possible de la couleur/opacité de la banière du menu et des sliders.
 - Possibilité d'ajouter des badges et des labels sur les submenus.
+- Possibilité de modifier la couleur/opacité du background et de la barre de progression.
 
 ✌ Et d'autres features à venir... ✌
 
