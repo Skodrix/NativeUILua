@@ -78,7 +78,7 @@ end
 function AddMenuFoodCount(menu)
     local amount = {}
     for i = 1, 10 do amount[i] = i end
-    local newitem = UIMenuSliderItem.New("Quantity", amount, 1, nil, false, { R = 255, G = 32, B = 57, A = 255 }, { R = 255, G = 255, B = 57, A = 150 })
+    local newitem = UIMenuSliderItem.New("Quantity", amount, 1, nil, false,  { R = 70, G = 119, B = 200, A = 255 },  { R = 4, G = 255, B = 100, A = 50 })
     menu:AddItem(newitem)
     menu.OnSliderChange = function(sender, item, index)
         if item == newitem then
@@ -112,7 +112,7 @@ end
 function AddMenuAnotherMenu(menu)
     local submenu = _menuPool:AddSubMenu(menu, "Another Menu", true, true)
     submenu.Item:SetLeftBadge(BadgeStyle.Ammo)
-    submenu.Item:RightLabel('Skodrix pd')
+    submenu.Item:RightLabel('~r~Hey RightLabel')
     submenu.Item:SetRightBadge(BadgeStyle.Ammo)
     for i = 1, 20, 1 do
         submenu.SubMenu:AddItem(UIMenuColouredItem.New("#" .. i .. " PageFiller", "Sample description that takes more than one line. Moreso, it takes way more than two lines since it's so long. Wow, check out this length!", { R = 0, G = 180, B = 0, A = 40 }, { R = 0, G = 180, B = 0, A = 100 }))

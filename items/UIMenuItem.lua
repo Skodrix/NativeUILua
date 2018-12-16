@@ -203,9 +203,15 @@ function UIMenuItem:Draw()
 		self.RightBadge.Sprite:Draw()
 	end
 
+
 	if self.Label.Text:Text() ~= "" and string.len(self.Label.Text:Text()) > 0 then
-		self.Label.Text:Position(420 + self._Offset.X + self.ParentMenu.WidthOffset, self.Label.Text.Y)
-		self.Label.Text:Draw()
+        if self.RightBadge.Badge ~= BadgeStyle.None then
+            self.Label.Text:Position(385 + self._Offset.X + self.ParentMenu.WidthOffset, self.Label.Text.Y)
+            self.Label.Text:Draw()
+        else
+            self.Label.Text:Position(420 + self._Offset.X + self.ParentMenu.WidthOffset, self.Label.Text.Y)
+            self.Label.Text:Draw()
+        end
 	end
 
 	self.Text:Draw()
