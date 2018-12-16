@@ -13,7 +13,7 @@ function UIMenuProgressItem.New(Text, Items, Index, Description, Counter)
 			Max = 407.5,
 			Index = tonumber(Index) or 1,
 		},
-		Background = UIResRectangle.New(0, 0, 415, 20),
+		Background = UIResRectangle.New(0, 0, 415, 20, 0, 0, 0, 255),
 		Bar = UIResRectangle.New(0, 0, 407.5, 12.5),
 		OnProgressChanged = function(menu, item, newindex) end,
 		OnProgressSelected = function(menu, item, newindex) end,

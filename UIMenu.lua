@@ -237,10 +237,8 @@ function UIMenu:CurrentSelection(value)
         if #self.Items == 0 then
             self.ActiveItem = 0
         end
-
         self.Items[self:CurrentSelection()]:Selected(false)
         self.ActiveItem = 1000000 - (1000000 % #self.Items) + tonumber(value)
-
         if self:CurrentSelection() > self.Pagination.Max then
             self.Pagination.Min = self:CurrentSelection() - self.Pagination.Total
             self.Pagination.Max = self:CurrentSelection()
@@ -285,6 +283,7 @@ function UIMenu:CalculateItemHeight()
             ItemOffset = ItemOffset + self:CalculateItemHeightOffset(Item)
         end
     end
+
     return ItemOffset
 end
 
@@ -382,14 +381,12 @@ end
 
 function UIMenu:MultilineFormat(str)
     if tostring(str) then
-
         local PixelPerLine = 425 + self.WidthOffset
         local AggregatePixels = 0
         local output = ""
         local words = string.split(tostring(str), " ")
-
         for i = 1, #words do
-            local offset = MeasureStringWidth(words[i], 0, 0.35)
+            local offset = MeasureStringWidth(words[i], 0, 0.30)
             AggregatePixels = AggregatePixels + offset
             if AggregatePixels > PixelPerLine then
                 output = output .. "\n" .. words[i] .. " "
@@ -438,14 +435,12 @@ function UIMenu:DrawCalculations()
 
     if #self.Items ~= 0 and self.Items[self:CurrentSelection()]:Description() ~= "" then
         self:RecalculateDescriptionPosition()
-
         local description = self.Items[self:CurrentSelection()]:Description()
         if self.Settings.MultilineFormats then
             self.Description.Text:Text(self:MultilineFormat(description))
         else
             self.Description.Text:Text(description)
         end
-
         local Linecount = #string.split(self.Description.Text:Text(), "\n")
         self.Description.Rectangle:Size(431 + self.WidthOffset, ((Linecount == 1) and 37 or ((Linecount + 1) * 22)))
     end
@@ -726,7 +721,6 @@ function UIMenu:GoLeft()
                 Item.Pressed = false
             end)
         end
-
     end
 end
 
@@ -774,7 +768,6 @@ function UIMenu:GoRight()
                 Item.Pressed = false
             end)
         end
-
     end
 end
 

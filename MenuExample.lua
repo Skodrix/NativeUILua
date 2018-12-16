@@ -15,8 +15,10 @@ ketchup = false
 dish = "Banana"
 quantity = 1
 _menuPool = MenuPool.New()
-mainMenu = UIMenu.New("Native UI", "~b~NATIVEUI SHOWCASE", nil, nil, nil, nil, nil, 255, 255, 255, 200)
+mainMenu = UIMenu.New("NativeUI", "~b~NATIVEUI SHOWCASE", nil, nil, nil, nil, nil, 255, 255, 255, 255)
 _menuPool:Add(mainMenu)
+
+
 
 
 function DefaultItem(menu)
@@ -78,7 +80,7 @@ end
 function AddMenuFoodCount(menu)
     local amount = {}
     for i = 1, 10 do amount[i] = i end
-    local newitem = UIMenuSliderItem.New("Quantity", amount, 1, nil, false,  { R = 70, G = 119, B = 200, A = 255 },  { R = 4, G = 255, B = 100, A = 50 })
+    local newitem = UIMenuSliderItem.New("Quantity", amount, 1, nil, false)
     menu:AddItem(newitem)
     menu.OnSliderChange = function(sender, item, index)
         if item == newitem then
@@ -112,8 +114,8 @@ end
 function AddMenuAnotherMenu(menu)
     local submenu = _menuPool:AddSubMenu(menu, "Another Menu", true, true)
     submenu.Item:SetLeftBadge(BadgeStyle.Ammo)
-    submenu.Item:RightLabel('~r~Hey RightLabel')
-    submenu.Item:SetRightBadge(BadgeStyle.Ammo)
+    submenu.Item:RightLabel('~o~Hey RightLabel')
+    submenu.Item:SetRightBadge(BadgeStyle.Heart)
     for i = 1, 20, 1 do
         submenu.SubMenu:AddItem(UIMenuColouredItem.New("#" .. i .. " PageFiller", "Sample description that takes more than one line. Moreso, it takes way more than two lines since it's so long. Wow, check out this length!", { R = 0, G = 180, B = 0, A = 40 }, { R = 0, G = 180, B = 0, A = 100 }))
     end
@@ -124,11 +126,11 @@ end
 function AddMenuHeritageUI(menu)
     local MonHeritage = {}
     for i = 0, 20 do
-        table.insert(MonHeritage, { Name = GetLabelText("FACE_MUMS") .. ' - ' .. i, Value = i })
+        table.insert(MonHeritage, { Name = 'Shopie - ' .. i, Value = i })
     end
     local DadHeritage = {}
     for i = 0, 22 do
-        table.insert(DadHeritage, { Name = GetLabelText("FACE_DADS") .. ' - ' .. i, Value = i })
+        table.insert(DadHeritage, { Name = 'Alexandre - ' .. i, Value = i })
     end
     local MixAmount = {}
     for i = 1, 9 do
@@ -143,8 +145,8 @@ function AddMenuHeritageUI(menu)
     local heritageWindow = UIMenuHeritageWindow.New(0, 0)
     local momSelect = UIMenuListItem.New(GetLabelText("FACE_MUMS"), MonHeritage, 0)
     local dadSelect = UIMenuListItem.New(GetLabelText("FACE_DADS"), DadHeritage, 0)
-    local resSlider = UIMenuSliderHeritageItem.New("Ressemblance", MixAmount, 0, "")
-    local skinSlider = UIMenuSliderHeritageItem.New("Teinte", MixAmount, 0, "")
+    local resSlider = UIMenuSliderHeritageItem.New("Ressemblance", MixAmount, 0, "", {R = 150, G = 0, B = 0, A = 255, }, {R = 100, G = 0, B = 0, A = 150, })
+    local skinSlider = UIMenuSliderHeritageItem.New("Teinte", MixAmount, 0, "", {R = 0, G = 150, B = 150, A = 255, }, {R = 0, G = 100, B = 100, A = 200, })
     submenu.SubMenu:AddWindow(heritageWindow)
     submenu.SubMenu:AddItem(momSelect)
     submenu.SubMenu:AddItem(dadSelect)
@@ -169,13 +171,26 @@ function AddMenuHeritageUI(menu)
 end
 
 
-DefaultItem(mainMenu)
+function CreateProgressItem(menu)
+    local amount = {}
+    for i = 1, 10 do amount[i] = i end
+    local item = UIMenuProgressItem.New("Progression Item", amount, 1, "Desc", 10)
+    menu:AddItem(item)
+
+    item.OnProgressChanged = function(menu, item, newindex)
+    ShowText(newindex)
+    end
+end
+
+--DefaultItem(mainMenu)
 AddMenuKetchup(mainMenu)
 AddMenuFoods(mainMenu)
 AddMenuFoodCount(mainMenu)
 AddMenuCook(mainMenu)
-AddMenuAnotherMenu(mainMenu)
-AddMenuHeritageUI(mainMenu)
+CreateProgressItem(mainMenu)
+--AddMenuAnotherMenu(mainMenu)
+--AddMenuHeritageUI(mainMenu)
+
 _menuPool:RefreshIndex()
 
 Citizen.CreateThread(function()
