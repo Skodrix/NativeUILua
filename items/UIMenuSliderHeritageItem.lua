@@ -2,17 +2,30 @@ UIMenuSliderHeritageItem = setmetatable({}, UIMenuSliderHeritageItem)
 UIMenuSliderHeritageItem.__index = UIMenuSliderHeritageItem
 UIMenuSliderHeritageItem.__call = function() return "UIMenuItem", "UIMenuSliderHeritageItem" end
 
-function UIMenuSliderHeritageItem.New(Text, Items, Index, Description)
+function UIMenuSliderHeritageItem.New(Text, Items, Index, Description, SliderColors, BackgroundSliderColors)
     if type(Items) ~= "table" then Items = {} end
     if Index == 0 then Index = 1 end
+
+    if type(SliderColors) ~= "table" or  SliderColors == nil then
+        _SliderColors = { R = 57, G = 119, B = 200, A = 255 }
+    else
+       _SliderColors = SliderColors
+    end
+
+    if type(BackgroundSliderColors) ~= "table" or  BackgroundSliderColors == nil then
+        _BackgroundSliderColors = { R = 4, G = 32, B = 57, A = 255 }
+    else
+        _BackgroundSliderColors = BackgroundSliderColors
+    end
+
     local _UIMenuSliderHeritageItem = {
         Base = UIMenuItem.New(Text or "", Description or ""),
         Items = Items,
         ShowDivider = 1,
         LeftArrow = Sprite.New("mpleaderboard", "leaderboard_male_icon", 0, 0, 30, 30, 0, 255, 255, 255, 255),
         RightArrow = Sprite.New("mpleaderboard", "leaderboard_female_icon", 0, 0, 30, 30, 0, 255, 255, 255, 255),
-        Background = UIResRectangle.New(0, 0, 150, 10, 4, 32, 57, 255),
-        Slider = UIResRectangle.New(0, 0, 75, 10, 57, 119, 200, 255),
+        Background = UIResRectangle.New(0, 0, 150, 10, _BackgroundSliderColors.R, _BackgroundSliderColors.G, _BackgroundSliderColors.B, _BackgroundSliderColors.A),
+        Slider = UIResRectangle.New(0, 0, 75, 10, _SliderColors.R, _SliderColors.G, _SliderColors.B, _SliderColors.A),
         Divider = UIResRectangle.New(0, 0, 4, 20, 255, 255, 255, 255),
         _Index = tonumber(Index) or 1,
         Audio = { Slider = "CONTINUOUS_SLIDER", Library = "HUD_FRONTEND_DEFAULT_SOUNDSET", Id = nil },

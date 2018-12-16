@@ -2,17 +2,27 @@ UIMenuSliderItem = setmetatable({}, UIMenuSliderItem)
 UIMenuSliderItem.__index = UIMenuSliderItem
 UIMenuSliderItem.__call = function() return "UIMenuItem", "UIMenuSliderItem" end
 
-function UIMenuSliderItem.New(Text, Items, Index, Description, Divider)
+function UIMenuSliderItem.New(Text, Items, Index, Description, Divider, SliderColors, BackgroundSliderColors)
 	if type(Items) ~= "table" then Items = {} end
 	if Index == 0 then Index = 1 end
+	if type(SliderColors) ~= "table" or  SliderColors == nil then
+		_SliderColors = { R = 57, G = 119, B = 200, A = 255 }
+	else
+		_SliderColors = SliderColors
+	end
+	if type(BackgroundSliderColors) ~= "table" or  BackgroundSliderColors == nil then
+		_BackgroundSliderColors = { R = 4, G = 32, B = 57, A = 255 }
+	else
+		_BackgroundSliderColors = BackgroundSliderColors
+	end
 	local _UIMenuSliderItem = {
 		Base = UIMenuItem.New(Text or "", Description or ""),
 		Items = Items,
 		ShowDivider = tobool(Divider),
 		LeftArrow = Sprite.New("commonmenu", "arrowleft", 0, 105, 25, 25),
 		RightArrow = Sprite.New("commonmenu", "arrowright", 0, 105, 25, 25),
-		Background = UIResRectangle.New(0, 0, 150, 10, 4, 32, 57, 255),
-		Slider = UIResRectangle.New(0, 0, 75, 10, 57, 119, 200, 255),
+		Background = UIResRectangle.New(0, 0, 150, 10,_BackgroundSliderColors.R, _BackgroundSliderColors.G, _BackgroundSliderColors.B, _BackgroundSliderColors.A),
+		Slider = UIResRectangle.New(0, 0, 75, 10,  _SliderColors.R, _SliderColors.G, _SliderColors.B, _SliderColors.A),
 		Divider = UIResRectangle.New(0, 0, 4, 20, 255, 255, 255, 255),
 		_Index = tonumber(Index) or 1,
 		OnSliderChanged = function(menu, item, newindex) end,

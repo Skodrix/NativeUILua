@@ -78,12 +78,12 @@ end
 function AddMenuFoodCount(menu)
     local amount = {}
     for i = 1, 10 do amount[i] = i end
-    local newitem = UIMenuSliderItem.New("Quantity", amount, 1, false)
+    local newitem = UIMenuSliderItem.New("Quantity", amount, 1, nil, false, { R = 255, G = 32, B = 57, A = 255 }, { R = 255, G = 255, B = 57, A = 150 })
     menu:AddItem(newitem)
     menu.OnSliderChange = function(sender, item, index)
         if item == newitem then
             quantity = item:IndexToItem(index)
-            ShowNotification("Preparing ~r~" .. quantity .. " ~b~" .. dish .. "(s)~w~...")
+            ShowText("Preparing ~r~" .. quantity .. " ~b~" .. dish .. "(s)~w~...")
         end
     end
 end
