@@ -39,7 +39,7 @@ function DefaultItem(menu)
                 y = (ActiveItem.Panels and ActiveItem.Panels[3].Y) or 0.0,
             },
         }
-        ShowText("~b~Selected opacity : ".. PanelItem.opacity .."\n ~o~Selected colors : ".. PanelItem.colors .."\n ~r~GridPanel : X = ".. PanelItem.grids.x .." -  Y = "..PanelItem.grids.y .."")
+        ShowText("~b~Selected opacity : " .. PanelItem.opacity .. "\n ~o~Selected colors : " .. PanelItem.colors .. "\n ~r~GridPanel : X = " .. PanelItem.grids.x .. " -  Y = " .. PanelItem.grids.y .. "")
     end
 end
 
@@ -111,10 +111,14 @@ end
 
 function AddMenuAnotherMenu(menu)
     local submenu = _menuPool:AddSubMenu(menu, "Another Menu", true, true)
+    submenu.Item:SetLeftBadge(BadgeStyle.Ammo)
+    submenu.Item:RightLabel('Skodrix pd')
+    submenu.Item:SetRightBadge(BadgeStyle.Ammo)
     for i = 1, 20, 1 do
-        submenu:AddItem(UIMenuColouredItem.New("#" .. i .. " PageFiller", "Sample description that takes more than one line. Moreso, it takes way more than two lines since it's so long. Wow, check out this length!", { R = 0, G = 180, B = 0, A = 40 }, { R = 0, G = 180, B = 0, A = 100 }))
+        submenu.SubMenu:AddItem(UIMenuColouredItem.New("#" .. i .. " PageFiller", "Sample description that takes more than one line. Moreso, it takes way more than two lines since it's so long. Wow, check out this length!", { R = 0, G = 180, B = 0, A = 40 }, { R = 0, G = 180, B = 0, A = 100 }))
     end
 end
+
 
 
 function AddMenuHeritageUI(menu)
@@ -134,17 +138,18 @@ function AddMenuHeritageUI(menu)
         Mom = 0,
         Dad = 0,
     }
-    local submenu = _menuPool:AddSubMenu(menu, "Heritage UI", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut la...", true, true)
+    local submenu = _menuPool:AddSubMenu(menu, "Heritage UI", "Sample description that takes more than one line. Moreso, it takes way more than two lines since it's so long. Wow, check out this length!", true, true)
+    submenu.Item:SetRightBadge(BadgeStyle.Heart)
     local heritageWindow = UIMenuHeritageWindow.New(0, 0)
     local momSelect = UIMenuListItem.New(GetLabelText("FACE_MUMS"), MonHeritage, 0)
     local dadSelect = UIMenuListItem.New(GetLabelText("FACE_DADS"), DadHeritage, 0)
     local resSlider = UIMenuSliderHeritageItem.New("Ressemblance", MixAmount, 0, "")
     local skinSlider = UIMenuSliderHeritageItem.New("Teinte", MixAmount, 0, "")
-    submenu:AddWindow(heritageWindow)
-    submenu:AddItem(momSelect)
-    submenu:AddItem(dadSelect)
-    submenu:AddItem(resSlider)
-    submenu:AddItem(skinSlider)
+    submenu.SubMenu:AddWindow(heritageWindow)
+    submenu.SubMenu:AddItem(momSelect)
+    submenu.SubMenu:AddItem(dadSelect)
+    submenu.SubMenu:AddItem(resSlider)
+    submenu.SubMenu:AddItem(skinSlider)
     momSelect.OnListChanged = function(ParentMenu, SelectedItem, Index)
         heritage.Mom = Index
         heritageWindow:Index(heritage.Mom, heritage.Dad)
