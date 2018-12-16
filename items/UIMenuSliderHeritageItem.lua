@@ -15,6 +15,7 @@ function UIMenuSliderHeritageItem.New(Text, Items, Index, Description)
         Slider = UIResRectangle.New(0, 0, 75, 10, 57, 119, 200, 255),
         Divider = UIResRectangle.New(0, 0, 4, 20, 255, 255, 255, 255),
         _Index = tonumber(Index) or 1,
+        Audio = { Slider = "CONTINUOUS_SLIDER", Library = "HUD_FRONTEND_DEFAULT_SOUNDSET", Id = nil },
         OnSliderChanged = function(menu, item, newindex) end,
         OnSliderSelected = function(menu, item, newindex) end,
     }
@@ -152,15 +153,12 @@ function UIMenuSliderHeritageItem:Draw()
         self.RightArrow:Colour(255, 255, 255, 255)
     end
 
-
     local Offset = ((self.Background.Width - self.Slider.Width) / (#self.Items - 1)) * (self._Index - 1)
 
     self.Slider:Position(250 + self.Base._Offset.X + Offset + self.Base.ParentMenu.WidthOffset, self.Slider.Y)
 
-
     self.LeftArrow:Draw()
     self.RightArrow:Draw()
-
 
     self.Background:Draw()
     self.Slider:Draw()

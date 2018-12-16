@@ -690,10 +690,20 @@ function UIMenu:GoLeft()
         PlaySoundFrontend(-1, self.Settings.Audio.LeftRight, self.Settings.Audio.Library, true)
     elseif subtype == "UIMenuSliderHeritageItem" then
         local Item = self.Items[self:CurrentSelection()]
-        Item:Index(Item._Index - 1)
+        Item:Index(Item._Index - 0.1)
         self.OnSliderChange(self, Item, Item:Index())
         Item.OnSliderChanged(self, Item, Item._Index)
-        PlaySoundFrontend(-1, self.Settings.Audio.LeftRight, self.Settings.Audio.Library, true)
+        if not Item.Pressed then
+            Item.Pressed = true
+            Citizen.CreateThread(function()
+                Item.Audio.Id = GetSoundId()
+                PlaySoundFrontend(Item.Audio.Id, Item.Audio.Slider, Item.Audio.Library, 1)
+                Citizen.Wait(100)
+                StopSound(Item.Audio.Id)
+                ReleaseSoundId(Item.Audio.Id)
+                Item.Pressed = false
+            end)
+        end
     end
 end
 
@@ -728,10 +738,20 @@ function UIMenu:GoRight()
         PlaySoundFrontend(-1, self.Settings.Audio.LeftRight, self.Settings.Audio.Library, true)
     elseif subtype == "UIMenuSliderHeritageItem" then
         local Item = self.Items[self:CurrentSelection()]
-        Item:Index(Item._Index + 1)
+        Item:Index(Item._Index + 0.1)
         self.OnSliderChange(self, Item, Item:Index())
         Item.OnSliderChanged(self, Item, Item._Index)
-        PlaySoundFrontend(-1, self.Settings.Audio.LeftRight, self.Settings.Audio.Library, true)
+        if not Item.Pressed then
+            Item.Pressed = true
+            Citizen.CreateThread(function()
+                Item.Audio.Id = GetSoundId()
+                PlaySoundFrontend(Item.Audio.Id, Item.Audio.Slider, Item.Audio.Library, 1)
+                Citizen.Wait(100)
+                StopSound(Item.Audio.Id)
+                ReleaseSoundId(Item.Audio.Id)
+                Item.Pressed = false
+            end)
+        end
     end
 end
 
