@@ -132,7 +132,6 @@ end
 function UIMenuGridPanel:Draw() -- required
     if self.Data.Enabled then
         self.Background:Size(431 + self.ParentItem:SetParentMenu().WidthOffset, 275)
-
         self.Background:Draw()
         self.Grid:Draw()
         self.Circle:Draw()

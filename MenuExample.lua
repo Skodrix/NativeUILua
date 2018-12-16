@@ -15,7 +15,7 @@ ketchup = false
 dish = "Banana"
 quantity = 1
 _menuPool = MenuPool.New()
-mainMenu = UIMenu.New("Native UI", "~b~NATIVEUI SHOWCASE", nil, nil, nil, nil, nil, 255, 255, 255, 255)
+mainMenu = UIMenu.New("Native UI", "~b~NATIVEUI SHOWCASE", nil, nil, nil, nil, nil, 255, 255, 255, 200)
 _menuPool:Add(mainMenu)
 
 
@@ -35,8 +35,8 @@ function DefaultItem(menu)
             opacity = (ActiveItem.Panels and ActiveItem.Panels[1] or 0.0),
             colors = (ActiveItem.Panels and ActiveItem.Panels[2] or 1),
             grids = {
-                x = (ActiveItem.Panels and ActiveItem.Panels[3]).X,
-                y = (ActiveItem.Panels and ActiveItem.Panels[3]).Y,
+                x = (ActiveItem.Panels and ActiveItem.Panels[3].X or 0.0),
+                y = (ActiveItem.Panels and ActiveItem.Panels[3].Y or 0.0),
             },
         }
         ShowText("~b~Selected opacity : ".. PanelItem.opacity .."\n ~o~Selected colors : ".. PanelItem.colors .."\n ~r~GridPanel : X = ".. PanelItem.grids.x .." -  Y = "..PanelItem.grids.y .."")
