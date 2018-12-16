@@ -14,7 +14,7 @@ CETTE VERSION CONTIENT EN PLUS DE LA VERSION ORIGINALE :
 - Quelques ajouts de configurations supplémentaires pour certains éléments.
 - Un exemple complet de toutes les features disponibles dans cette version.
 - Modifications de certains bruits sonores du menu lors de l'utilisation des sliders.
-- Modification possible de la couleur/opacité de la banière du menu.
+- Modification possible de la couleur/opacité de la banière du menu et des sliders
 
 ✌ Et d'autres features à venir... ✌
 
