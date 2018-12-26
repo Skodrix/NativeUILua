@@ -30,8 +30,6 @@ client_scripts {
   "panels/UIMenuColourPanel.lua",
   "panels/UIMenuPercentagePanel.lua",
 
-  "utils/UITimerBars.lua",
-
   "UIMenu.lua",
   "MenuPool.lua",
   "NativeUI.lua",
