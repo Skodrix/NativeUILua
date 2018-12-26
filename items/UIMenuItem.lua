@@ -4,8 +4,10 @@ UIMenuItem.__call = function()
     return "UIMenuItem", "UIMenuItem"
 end
 
+---New
+---@param Text string
+---@param Description string
 function UIMenuItem.New(Text, Description)
-
     _UIMenuItem = {
         Rectangle = UIResRectangle.New(0, 0, 431, 38, 255, 255, 255, 20),
         Text = UIResText.New(tostring(Text) or "", 8, 0, 0.33, 245, 245, 245, 255, 0),
@@ -32,6 +34,8 @@ function UIMenuItem.New(Text, Description)
     return setmetatable(_UIMenuItem, UIMenuItem)
 end
 
+---SetParentMenu
+---@param Menu table
 function UIMenuItem:SetParentMenu(Menu)
     if Menu ~= nil and Menu() == "UIMenu" then
         self.ParentMenu = Menu
@@ -40,6 +44,8 @@ function UIMenuItem:SetParentMenu(Menu)
     end
 end
 
+---Selected
+---@param bool boolean
 function UIMenuItem:Selected(bool)
     if bool ~= nil then
         self._Selected = tobool(bool)
@@ -48,6 +54,8 @@ function UIMenuItem:Selected(bool)
     end
 end
 
+---Hovered
+---@param bool boolean
 function UIMenuItem:Hovered(bool)
     if bool ~= nil then
         self._Hovered = tobool(bool)
@@ -56,6 +64,8 @@ function UIMenuItem:Hovered(bool)
     end
 end
 
+---Enabled
+---@param bool boolean
 function UIMenuItem:Enabled(bool)
     if bool ~= nil then
         self._Enabled = tobool(bool)
@@ -64,6 +74,8 @@ function UIMenuItem:Enabled(bool)
     end
 end
 
+---Description
+---@param str string
 function UIMenuItem:Description(str)
     if tostring(str) and str ~= nil then
         self._Description = tostring(str)
@@ -72,6 +84,9 @@ function UIMenuItem:Description(str)
     end
 end
 
+---Offset
+---@param X number
+---@param Y number
 function UIMenuItem:Offset(X, Y)
     if tonumber(X) or tonumber(Y) then
         if tonumber(X) then
@@ -85,6 +100,9 @@ function UIMenuItem:Offset(X, Y)
     end
 end
 
+
+---Position
+---@param Y number
 function UIMenuItem:Position(Y)
     if tonumber(Y) then
         self.Rectangle:Position(self._Offset.X, Y + 144 + self._Offset.Y)
@@ -96,6 +114,10 @@ function UIMenuItem:Position(Y)
     end
 end
 
+---RightLabel
+---@param Text string
+---@param MainColour table
+---@param HighlightColour table
 function UIMenuItem:RightLabel(Text, MainColour, HighlightColour)
     if MainColour ~= nil then labelMainColour = MainColour else labelMainColour = { R = 255, G = 255, B = 255, A = 255 } end
     if HighlightColour ~= nil then labelHighlightColour = HighlightColour else labelHighlightColour = { R = 0, G = 0, B = 0, A = 255 } end
@@ -114,18 +136,24 @@ function UIMenuItem:RightLabel(Text, MainColour, HighlightColour)
     end
 end
 
+---SetLeftBadge
+---@param Badge number
 function UIMenuItem:SetLeftBadge(Badge)
     if tonumber(Badge) then
         self.LeftBadge.Badge = tonumber(Badge)
     end
 end
 
+---SetRightBadge
+---@param Badge number
 function UIMenuItem:SetRightBadge(Badge)
     if tonumber(Badge) then
         self.RightBadge.Badge = tonumber(Badge)
     end
 end
 
+---Text
+---@param Text string
 function UIMenuItem:Text(Text)
     if tostring(Text) and Text ~= nil then
         self.Text:Text(tostring(Text))
@@ -134,6 +162,8 @@ function UIMenuItem:Text(Text)
     end
 end
 
+---AddPanel
+---@param Panel table
 function UIMenuItem:AddPanel(Panel)
     if Panel() == "UIMenuPanel" then
         table.insert(self.Panels, Panel)
@@ -141,6 +171,8 @@ function UIMenuItem:AddPanel(Panel)
     end
 end
 
+---RemovePanelAt
+---@param Index table
 function UIMenuItem:RemovePanelAt(Index)
     if tonumber(Index) then
         if self.Panels[Index] then
@@ -149,6 +181,8 @@ function UIMenuItem:RemovePanelAt(Index)
     end
 end
 
+---FindPanelIndex
+---@param Panel table
 function UIMenuItem:FindPanelIndex(Panel)
     if Panel() == "UIMenuPanel" then
         for Index = 1, #self.Panels do
@@ -160,6 +194,7 @@ function UIMenuItem:FindPanelIndex(Panel)
     return nil
 end
 
+---FindPanelItem
 function UIMenuItem:FindPanelItem()
     for Index = #self.Items, 1, -1 do
         if self.Items[Index].Panel then
@@ -169,6 +204,7 @@ function UIMenuItem:FindPanelItem()
     return nil
 end
 
+---Draw
 function UIMenuItem:Draw()
     self.Rectangle:Size(431 + self.ParentMenu.WidthOffset, self.Rectangle.Height)
     self.SelectedSprite:Size(431 + self.ParentMenu.WidthOffset, self.SelectedSprite.Height)
