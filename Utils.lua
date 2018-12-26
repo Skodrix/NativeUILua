@@ -76,6 +76,19 @@ function Controller()
 	return not IsInputDisabled(2)
 end
 
+function ShowPopup(text)
+	SetNotificationTextEntry("STRING")
+	AddTextComponentString(text)
+	DrawNotification(false, false)
+end
+
+function ShowNotification(text)
+	ClearPrints()
+	SetTextEntry_2("STRING")
+	AddTextComponentString(text)
+	DrawSubtitleTimed(6000, 1)
+end
+
 function print_table(node)
 	-- to make output beautiful
 	local function tab(amt)
