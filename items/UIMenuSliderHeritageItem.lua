@@ -2,6 +2,13 @@ UIMenuSliderHeritageItem = setmetatable({}, UIMenuSliderHeritageItem)
 UIMenuSliderHeritageItem.__index = UIMenuSliderHeritageItem
 UIMenuSliderHeritageItem.__call = function() return "UIMenuItem", "UIMenuSliderHeritageItem" end
 
+---New
+---@param Text string
+---@param Items table
+---@param Index boolean
+---@param Description string
+---@param SliderColors table
+---@param BackgroundSliderColors table
 function UIMenuSliderHeritageItem.New(Text, Items, Index, Description, SliderColors, BackgroundSliderColors)
     if type(Items) ~= "table" then Items = {} end
     if Index == 0 then Index = 1 end
@@ -35,6 +42,8 @@ function UIMenuSliderHeritageItem.New(Text, Items, Index, Description, SliderCol
     return setmetatable(_UIMenuSliderHeritageItem, UIMenuSliderHeritageItem)
 end
 
+---SetParentMenu
+---@param Menu table
 function UIMenuSliderHeritageItem:SetParentMenu(Menu)
     if Menu() == "UIMenu" then
         self.Base.ParentMenu = Menu
@@ -43,6 +52,8 @@ function UIMenuSliderHeritageItem:SetParentMenu(Menu)
     end
 end
 
+---Position
+---@param Y number
 function UIMenuSliderHeritageItem:Position(Y)
     if tonumber(Y) then
         self.Background:Position(250 + self.Base._Offset.X + self.Base.ParentMenu.WidthOffset, Y + 158.5 + self.Base._Offset.Y)
@@ -54,6 +65,8 @@ function UIMenuSliderHeritageItem:Position(Y)
     end
 end
 
+---Selected
+---@param bool boolean
 function UIMenuSliderHeritageItem:Selected(bool)
     if bool ~= nil then
         self.Base._Selected = tobool(bool)
@@ -62,6 +75,8 @@ function UIMenuSliderHeritageItem:Selected(bool)
     end
 end
 
+---Hovered
+---@param bool boolean
 function UIMenuSliderHeritageItem:Hovered(bool)
     if bool ~= nil then
         self.Base._Hovered = tobool(bool)
@@ -70,6 +85,8 @@ function UIMenuSliderHeritageItem:Hovered(bool)
     end
 end
 
+---Enabled
+---@param bool boolean
 function UIMenuSliderHeritageItem:Enabled(bool)
     if bool ~= nil then
         self.Base._Enabled = tobool(bool)
@@ -78,6 +95,8 @@ function UIMenuSliderHeritageItem:Enabled(bool)
     end
 end
 
+---Description
+---@param str string
 function UIMenuSliderHeritageItem:Description(str)
     if tostring(str) and str ~= nil then
         self.Base._Description = tostring(str)
@@ -86,6 +105,9 @@ function UIMenuSliderHeritageItem:Description(str)
     end
 end
 
+---Offset
+---@param X number
+---@param Y number
 function UIMenuSliderHeritageItem:Offset(X, Y)
     if tonumber(X) or tonumber(Y) then
         if tonumber(X) then
@@ -99,6 +121,8 @@ function UIMenuSliderHeritageItem:Offset(X, Y)
     end
 end
 
+---Text
+---@param Text string
 function UIMenuSliderHeritageItem:Text(Text)
     if tostring(Text) and Text ~= nil then
         self.Base.Text:Text(tostring(Text))
@@ -107,6 +131,8 @@ function UIMenuSliderHeritageItem:Text(Text)
     end
 end
 
+---Index
+---@param Index number
 function UIMenuSliderHeritageItem:Index(Index)
     if tonumber(Index) then
         if tonumber(Index) > #self.Items then
@@ -121,6 +147,8 @@ function UIMenuSliderHeritageItem:Index(Index)
     end
 end
 
+---ItemToIndex
+---@param Item table
 function UIMenuSliderHeritageItem:ItemToIndex(Item)
     for i = 1, #self.Items do
         if type(Item) == type(self.Items[i]) and Item == self.Items[i] then
@@ -129,6 +157,8 @@ function UIMenuSliderHeritageItem:ItemToIndex(Item)
     end
 end
 
+---IndexToItem
+---@param Index number
 function UIMenuSliderHeritageItem:IndexToItem(Index)
     if tonumber(Index) then
         if tonumber(Index) == 0 then Index = 1 end
@@ -138,18 +168,22 @@ function UIMenuSliderHeritageItem:IndexToItem(Index)
     end
 end
 
+---SetLeftBadge
 function UIMenuSliderHeritageItem:SetLeftBadge()
     error("This item does not support badges")
 end
 
+---SetRightBadge
 function UIMenuSliderHeritageItem:SetRightBadge()
     error("This item does not support badges")
 end
 
+---RightLabel
 function UIMenuSliderHeritageItem:RightLabel()
     error("This item does not support a right label")
 end
 
+---Draw
 function UIMenuSliderHeritageItem:Draw()
     self.Base:Draw()
 
@@ -184,4 +218,5 @@ function UIMenuSliderHeritageItem:Draw()
             self.Divider:Colour(255, 255, 255, 255)
         end
     end
+
 end

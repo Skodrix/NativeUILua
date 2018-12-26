@@ -2,6 +2,12 @@ UIMenuProgressItem = setmetatable({}, UIMenuProgressItem)
 UIMenuProgressItem.__index = UIMenuProgressItem
 UIMenuProgressItem.__call = function() return "UIMenuItem", "UIMenuProgressItem" end
 
+---New
+---@param Text string
+---@param Items table
+---@param Index number
+---@param Description string
+---@param Counter boolean
 function UIMenuProgressItem.New(Text, Items, Index, Description, Counter)
 	if type(Items) ~= "table" then Items = {} end
 	if Index == 0 then Index = 1 end
@@ -33,6 +39,8 @@ function UIMenuProgressItem.New(Text, Items, Index, Description, Counter)
 	return setmetatable(_UIMenuProgressItem, UIMenuProgressItem)
 end
 
+---SetParentMenu
+---@param Menu table
 function UIMenuProgressItem:SetParentMenu(Menu)
 	if Menu() == "UIMenu" then
 		self.Base.ParentMenu = Menu
@@ -41,6 +49,8 @@ function UIMenuProgressItem:SetParentMenu(Menu)
 	end
 end
 
+---Position
+---@param Y number
 function UIMenuProgressItem:Position(Y)
 	if tonumber(Y) then
 		self.Base:Position(Y)
@@ -49,6 +59,8 @@ function UIMenuProgressItem:Position(Y)
 	end
 end
 
+---Selected
+---@param bool number
 function UIMenuProgressItem:Selected(bool)
 	if bool ~= nil then
 		self.Base._Selected = tobool(bool)
@@ -57,6 +69,8 @@ function UIMenuProgressItem:Selected(bool)
 	end
 end
 
+---Hovered
+---@param bool boolean
 function UIMenuProgressItem:Hovered(bool)
 	if bool ~= nil then
 		self.Base._Hovered = tobool(bool)
@@ -65,6 +79,8 @@ function UIMenuProgressItem:Hovered(bool)
 	end
 end
 
+---Enabled
+---@param bool boolean
 function UIMenuProgressItem:Enabled(bool)
 	if bool ~= nil then
 		self.Base._Enabled = tobool(bool)
@@ -73,6 +89,8 @@ function UIMenuProgressItem:Enabled(bool)
 	end
 end
 
+---Description
+---@param str string
 function UIMenuProgressItem:Description(str)
 	if tostring(str) and str ~= nil then
 		self.Base._Description = tostring(str)
@@ -81,6 +99,9 @@ function UIMenuProgressItem:Description(str)
 	end
 end
 
+---Offset
+---@param X number
+---@param Y number
 function UIMenuProgressItem:Offset(X, Y)
 	if tonumber(X) or tonumber(Y) then
 		if tonumber(X) then
@@ -94,6 +115,8 @@ function UIMenuProgressItem:Offset(X, Y)
 	end
 end
 
+---Text
+---@param Text string
 function UIMenuProgressItem:Text(Text)
 	if tostring(Text) and Text ~= nil then
 		self.Base.Text:Text(tostring(Text))
@@ -102,6 +125,8 @@ function UIMenuProgressItem:Text(Text)
 	end
 end
 
+---Index
+---@param Index table
 function UIMenuProgressItem:Index(Index)
 	if tonumber(Index) then
 		if tonumber(Index) > #self.Data.Items then
@@ -124,6 +149,8 @@ function UIMenuProgressItem:Index(Index)
 	end
 end
 
+---ItemToIndex
+---@param Item table
 function UIMenuProgressItem:ItemToIndex(Item)
 	for i = 1, #self.Data.Items do
 		if type(Item) == type(self.Data.Items[i]) and Item == self.Data.Items[i] then
@@ -134,6 +161,8 @@ function UIMenuProgressItem:ItemToIndex(Item)
 	end
 end
 
+---IndexToItem
+---@param Index table
 function UIMenuProgressItem:IndexToItem(Index)
 	if tonumber(Index) then
 		if tonumber(Index) == 0 then Index = 1 end
@@ -143,23 +172,29 @@ function UIMenuProgressItem:IndexToItem(Index)
 	end
 end
 
+---SetLeftBadge
 function UIMenuProgressItem:SetLeftBadge()
 	error("This item does not support badges")
 end
 
+---SetRightBadge
 function UIMenuProgressItem:SetRightBadge()
 	error("This item does not support badges")
 end
 
+---RightLabel
 function UIMenuProgressItem:RightLabel()
 	error("This item does not support a right label")
 end
 
+---CalculateProgress
+---@param CursorX number
 function UIMenuProgressItem:CalculateProgress(CursorX)
 	local Progress = CursorX - self.Bar.X
 	self:Index(math.round(#self.Data.Items * (((Progress >= 0 and Progress <= self.Data.Max) and Progress or ((Progress < 0) and 0 or self.Data.Max))/self.Data.Max)))
 end
 
+---Draw
 function UIMenuProgressItem:Draw()
 	self.Base:Draw()
 

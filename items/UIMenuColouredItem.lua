@@ -2,6 +2,11 @@ UIMenuColouredItem = setmetatable({}, UIMenuColouredItem)
 UIMenuColouredItem.__index = UIMenuColouredItem
 UIMenuColouredItem.__call = function() return "UIMenuItem", "UIMenuColouredItem" end
 
+---New
+---@param Text string
+---@param Description string
+---@param MainColour table
+---@param HighlightColour table
 function UIMenuColouredItem.New(Text, Description, MainColour, HighlightColour)
     if type(Colour) ~= "table" then Colour = { R = 0, G = 0, B = 0, A = 255 } end
     if type(HighlightColour) ~= "table" then Colour = { R = 255, G = 255, B = 255, A = 255 } end
@@ -17,6 +22,8 @@ function UIMenuColouredItem.New(Text, Description, MainColour, HighlightColour)
     return setmetatable(_UIMenuColouredItem, UIMenuColouredItem)
 end
 
+---SetParentMenu
+---@param Menu table
 function UIMenuColouredItem:SetParentMenu(Menu)
     if Menu() == "UIMenu" then
         self.Base.ParentMenu = Menu
@@ -25,6 +32,8 @@ function UIMenuColouredItem:SetParentMenu(Menu)
     end
 end
 
+---Position
+---@param Y number
 function UIMenuColouredItem:Position(Y)
     if tonumber(Y) then
         self.Base:Position(Y)
@@ -32,6 +41,8 @@ function UIMenuColouredItem:Position(Y)
     end
 end
 
+---Selected
+---@param bool boolean
 function UIMenuColouredItem:Selected(bool)
     if bool ~= nil then
         self.Base._Selected = tobool(bool)
@@ -40,6 +51,8 @@ function UIMenuColouredItem:Selected(bool)
     end
 end
 
+---Hovered
+---@param bool boolean
 function UIMenuColouredItem:Hovered(bool)
     if bool ~= nil then
         self.Base._Hovered = tobool(bool)
@@ -48,6 +61,8 @@ function UIMenuColouredItem:Hovered(bool)
     end
 end
 
+---Enabled
+---@param bool boolean
 function UIMenuColouredItem:Enabled(bool)
     if bool ~= nil then
         self.Base._Enabled = tobool(bool)
@@ -56,6 +71,8 @@ function UIMenuColouredItem:Enabled(bool)
     end
 end
 
+---Description
+---@param str string
 function UIMenuColouredItem:Description(str)
     if tostring(str) and str ~= nil then
         self.Base._Description = tostring(str)
@@ -64,6 +81,9 @@ function UIMenuColouredItem:Description(str)
     end
 end
 
+---Offset
+---@param X number
+---@param Y number
 function UIMenuColouredItem:Offset(X, Y)
     if tonumber(X) or tonumber(Y) then
         if tonumber(X) then
@@ -77,6 +97,8 @@ function UIMenuColouredItem:Offset(X, Y)
     end
 end
 
+---Text
+---@param Text string
 function UIMenuColouredItem:Text(Text)
     if tostring(Text) and Text ~= nil then
         self.Base.Text:Text(tostring(Text))
@@ -85,6 +107,10 @@ function UIMenuColouredItem:Text(Text)
     end
 end
 
+---RightLabel
+---@param Text string
+---@param MainColour table
+---@param HighlightColour table
 function UIMenuColouredItem:RightLabel(Text, MainColour, HighlightColour)
     if tostring(Text) and Text ~= nil then
         if type(MainColour) == "table" then
@@ -95,22 +121,29 @@ function UIMenuColouredItem:RightLabel(Text, MainColour, HighlightColour)
         end
         self.Base.Label.Text:Text(tostring(Text))
     else
+        self.Label.MainColour = { R = 0, G = 0, B = 0, A = 0 }
+        self.Label.HighlightColour = { R = 0, G = 0, B = 0, A = 0 }
         return self.Base.Label.Text:Text()
     end
 end
 
+---SetLeftBadge
+---@param Badge number
 function UIMenuColouredItem:SetLeftBadge(Badge)
     if tonumber(Badge) then
         self.Base.LeftBadge.Badge = tonumber(Badge)
     end
 end
 
+---SetRightBadge
+---@param Badge number
 function UIMenuColouredItem:SetRightBadge(Badge)
     if tonumber(Badge) then
         self.Base.RightBadge.Badge = tonumber(Badge)
     end
 end
 
+---Draw
 function UIMenuColouredItem:Draw()
     self.Rectangle:Draw()
     self.Base:Draw()

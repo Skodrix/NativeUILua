@@ -2,6 +2,10 @@ UIMenuCheckboxItem = setmetatable({}, UIMenuCheckboxItem)
 UIMenuCheckboxItem.__index = UIMenuCheckboxItem
 UIMenuCheckboxItem.__call = function() return "UIMenuItem", "UIMenuCheckboxItem" end
 
+---New
+---@param Text string
+---@param Check boolean
+---@param Description string
 function UIMenuCheckboxItem.New(Text, Check, Description)
 	local _UIMenuCheckboxItem = {
 		Base = UIMenuItem.New(Text or "", Description or ""),
@@ -12,6 +16,8 @@ function UIMenuCheckboxItem.New(Text, Check, Description)
 	return setmetatable(_UIMenuCheckboxItem, UIMenuCheckboxItem)
 end
 
+---SetParentMenu
+---@param Menu table
 function UIMenuCheckboxItem:SetParentMenu(Menu)
 	if Menu() == "UIMenu" then
 		self.Base.ParentMenu = Menu
@@ -20,6 +26,8 @@ function UIMenuCheckboxItem:SetParentMenu(Menu)
 	end
 end
 
+---Position
+---@param Y number
 function UIMenuCheckboxItem:Position(Y)
 	if tonumber(Y) then
 		self.Base:Position(Y)
@@ -27,6 +35,8 @@ function UIMenuCheckboxItem:Position(Y)
 	end
 end
 
+---Selected
+---@param bool boolean
 function UIMenuCheckboxItem:Selected(bool)
 	if bool ~= nil then
 		self.Base._Selected = tobool(bool)
@@ -35,6 +45,8 @@ function UIMenuCheckboxItem:Selected(bool)
 	end
 end
 
+---Hovered
+---@param bool boolean
 function UIMenuCheckboxItem:Hovered(bool)
 	if bool ~= nil then
 		self.Base._Hovered = tobool(bool)
@@ -43,6 +55,8 @@ function UIMenuCheckboxItem:Hovered(bool)
 	end
 end
 
+---Enabled
+---@param bool boolean
 function UIMenuCheckboxItem:Enabled(bool)
 	if bool ~= nil then
 		self.Base._Enabled = tobool(bool)
@@ -51,6 +65,8 @@ function UIMenuCheckboxItem:Enabled(bool)
 	end
 end
 
+---Description
+---@param str string
 function UIMenuCheckboxItem:Description(str)
 	if tostring(str) and str ~= nil then
 		self.Base._Description = tostring(str)
@@ -59,6 +75,9 @@ function UIMenuCheckboxItem:Description(str)
 	end
 end
 
+---Offset
+---@param X number
+---@param Y number
 function UIMenuCheckboxItem:Offset(X, Y)
 	if tonumber(X) or tonumber(Y) then
 		if tonumber(X) then
@@ -72,6 +91,8 @@ function UIMenuCheckboxItem:Offset(X, Y)
 	end
 end
 
+---Text
+---@param Text string
 function UIMenuCheckboxItem:Text(Text)
 	if tostring(Text) and Text ~= nil then
 		self.Base.Text:Text(tostring(Text))
@@ -80,18 +101,22 @@ function UIMenuCheckboxItem:Text(Text)
 	end
 end
 
+---SetLeftBadge
 function UIMenuCheckboxItem:SetLeftBadge()
 	error("This item does not support badges")
 end
 
+---SetRightBadge
 function UIMenuCheckboxItem:SetRightBadge()
 	error("This item does not support badges")
 end
 
+---RightLabel
 function UIMenuCheckboxItem:RightLabel()
 	error("This item does not support a right label")
 end
 
+---Draw
 function UIMenuCheckboxItem:Draw()
 	self.Base:Draw()
 	self.CheckedSprite:Position(380 + self.Base._Offset.X + self.Base.ParentMenu.WidthOffset, self.CheckedSprite.Y)

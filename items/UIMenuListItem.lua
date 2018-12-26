@@ -2,6 +2,11 @@ UIMenuListItem = setmetatable({}, UIMenuListItem)
 UIMenuListItem.__index = UIMenuListItem
 UIMenuListItem.__call = function() return "UIMenuItem", "UIMenuListItem" end
 
+---New
+---@param Text string
+---@param Items table
+---@param Index number
+---@param Description string
 function UIMenuListItem.New(Text, Items, Index, Description)
 	if type(Items) ~= "table" then Items = {} end
 	if Index == 0 then Index = 1 end
@@ -19,6 +24,8 @@ function UIMenuListItem.New(Text, Items, Index, Description)
 	return setmetatable(_UIMenuListItem, UIMenuListItem)
 end
 
+---SetParentMenu
+---@param Menu table
 function UIMenuListItem:SetParentMenu(Menu)
 	if Menu ~= nil and Menu() == "UIMenu" then
 		self.Base.ParentMenu = Menu
@@ -27,6 +34,8 @@ function UIMenuListItem:SetParentMenu(Menu)
 	end
 end
 
+---Position
+---@param Y number
 function UIMenuListItem:Position(Y)
 	if tonumber(Y) then
 		self.LeftArrow:Position(300 + self.Base._Offset.X + self.Base.ParentMenu.WidthOffset, 147 + Y + self.Base._Offset.Y)
@@ -36,6 +45,8 @@ function UIMenuListItem:Position(Y)
 	end
 end
 
+---Selected
+---@param bool boolean
 function UIMenuListItem:Selected(bool)
 	if bool ~= nil then
 		self.Base._Selected = tobool(bool)
@@ -44,6 +55,8 @@ function UIMenuListItem:Selected(bool)
 	end
 end
 
+---Hovered
+---@param bool boolean
 function UIMenuListItem:Hovered(bool)
 	if bool ~= nil then
 		self.Base._Hovered = tobool(bool)
@@ -52,6 +65,8 @@ function UIMenuListItem:Hovered(bool)
 	end
 end
 
+---Enabled
+---@param bool boolean
 function UIMenuListItem:Enabled(bool)
 	if bool ~= nil then
 		self.Base._Enabled = tobool(bool)
@@ -60,6 +75,8 @@ function UIMenuListItem:Enabled(bool)
 	end
 end
 
+---Description
+---@param str string
 function UIMenuListItem:Description(str)
 	if tostring(str) and str ~= nil then
 		self.Base._Description = tostring(str)
@@ -68,6 +85,9 @@ function UIMenuListItem:Description(str)
 	end
 end
 
+---Offset
+---@param X number
+---@param Y number
 function UIMenuListItem:Offset(X, Y)
 	if tonumber(X) or tonumber(Y) then
 		if tonumber(X) then
@@ -81,6 +101,8 @@ function UIMenuListItem:Offset(X, Y)
 	end
 end
 
+---Text
+---@param Text string
 function UIMenuListItem:Text(Text)
 	if tostring(Text) and Text ~= nil then
 		self.Base.Text:Text(tostring(Text))
@@ -89,6 +111,8 @@ function UIMenuListItem:Text(Text)
 	end
 end
 
+---Index
+---@param Index table
 function UIMenuListItem:Index(Index)
 	if tonumber(Index) then
 		if tonumber(Index) > #self.Items then
@@ -103,6 +127,8 @@ function UIMenuListItem:Index(Index)
 	end
 end
 
+---ItemToIndex
+---@param Item table
 function UIMenuListItem:ItemToIndex(Item)
 	for i = 1, #self.Items do
 		if type(Item) == type(self.Items[i]) and Item == self.Items[i] then
@@ -113,6 +139,8 @@ function UIMenuListItem:ItemToIndex(Item)
 	end
 end
 
+---IndexToItem
+---@param Index table
 function UIMenuListItem:IndexToItem(Index)
 	if tonumber(Index) then
 		if tonumber(Index) == 0 then Index = 1 end
@@ -122,18 +150,23 @@ function UIMenuListItem:IndexToItem(Index)
 	end
 end
 
+---SetLeftBadge
 function UIMenuListItem:SetLeftBadge()
 	error("This item does not support badges")
 end
 
+---SetRightBadge
 function UIMenuListItem:SetRightBadge()
 	error("This item does not support badges")
 end
 
+---RightLabel
 function UIMenuListItem:RightLabel()
 	error("This item does not support a right label")
 end
 
+---AddPanel
+---@param Panel table
 function UIMenuListItem:AddPanel(Panel)
 	if Panel() == "UIMenuPanel" then
 		table.insert(self.Panels, Panel)
@@ -141,6 +174,8 @@ function UIMenuListItem:AddPanel(Panel)
 	end
 end
 
+---RemovePanelAt
+---@param Index table
 function UIMenuListItem:RemovePanelAt(Index)
 	if tonumber(Index) then
 		if self.Panels[Index] then
@@ -149,6 +184,8 @@ function UIMenuListItem:RemovePanelAt(Index)
 	end
 end
 
+---FindPanelIndex
+---@param Panel table
 function UIMenuListItem:FindPanelIndex(Panel)
 	if Panel() == "UIMenuPanel" then
 		for Index = 1, #self.Panels do
@@ -160,6 +197,7 @@ function UIMenuListItem:FindPanelIndex(Panel)
 	return nil
 end
 
+---FindPanelItem
 function UIMenuListItem:FindPanelItem()
 	for Index = #self.Items, 1, -1 do
 		if self.Items[Index].Panel then
@@ -169,6 +207,7 @@ function UIMenuListItem:FindPanelItem()
 	return nil
 end
 
+---Draw
 function UIMenuListItem:Draw()
 	self.Base:Draw()
 
