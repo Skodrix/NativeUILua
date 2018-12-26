@@ -30,8 +30,9 @@ client_scripts {
   "panels/UIMenuColourPanel.lua",
   "panels/UIMenuPercentagePanel.lua",
 
-  "UIMenu.lua",
-  "MenuPool.lua",
+  "base/UIMenu.lua",
+  "base/MenuPool.lua",
+
   "NativeUI.lua",
 
   "MenuExample.lua",
