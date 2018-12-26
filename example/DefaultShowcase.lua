@@ -65,6 +65,11 @@ function AddMenuCook(menu)
             if(badge == 23)then
                 badge = 0
             end
+            if(badge == 22)then
+                newitem:RightLabel('Reset badge to ~r~0')
+            else
+                newitem:RightLabel(nil)
+            end
             newitem:SetRightBadge(badge)
         end
     end
