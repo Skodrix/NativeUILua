@@ -1,7 +1,7 @@
 UIMenu = setmetatable({}, UIMenu)
 UIMenu.__index = UIMenu
 UIMenu.__call = function() return "UIMenu" end
-
+   
 function UIMenu.New(Title, Subtitle, X, Y, TxtDictionary, TxtName, Heading, R, G, B, A)
     local X, Y = tonumber(X) or 0, tonumber(Y) or 0
     if Title ~= nil then Title = tostring(Title) or "" else Title = "" end
@@ -963,6 +963,7 @@ function UIMenu:Draw()
     if self.Settings.ScaleWithSafezone then
         ScreenDrawPositionEnd()
     end
+
 end
 
 function UIMenu:ProcessMouse()

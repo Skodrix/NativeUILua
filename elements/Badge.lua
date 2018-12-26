@@ -150,6 +150,13 @@ BadgeTexture = {
 	[22] = function()
 		return "shop_tick_icon"
 	end,
+	[23] = function(Selected)
+		if Selected then
+			return "mp_specitem_cash"
+		else
+			return "mp_specitem_cash_black"
+		end
+	end,
 }
 
 BadgeDictionary = {
@@ -158,6 +165,13 @@ BadgeDictionary = {
 			return "commonmenu"
 		else
 			return "commonmenu"
+		end
+	end,
+	[1] = function(Selected)
+		if Selected then
+			return "mpinventory"
+		else
+			return "mpinventory"
 		end
 	end,
 }

@@ -49,9 +49,7 @@ function AddLongStringForUtf8(str)
         AddTextComponentSubstringPlayerName(str)
         return
     end
-
     local startIndex = 0
-
     for i = 0, GetCharacterCount(str), 1 do
         local length = i - startIndex
         if GetByteCount(string.sub(str, startIndex, length)) > maxbytelength then
@@ -85,6 +83,7 @@ function MeasureStringWidth(str, font, scale)
 end
 
 function UIResText.New(Text, X, Y, Scale, R, G, B, A, Font, Alignment, DropShadow, Outline, WordWrap)
+
 	local _UIResText = {
         _Text = tostring(Text) or "",
         X = tonumber(X) or 0,
@@ -152,6 +151,7 @@ function UIResText:Draw()
         end
     end
 
+
     if tonumber(self.WordWrap) then
         if tonumber(self.WordWrap) ~= 0 then
             SetTextWrap(Position.X, Position.X + (tonumber(self.WordWrap) / Resolution.Width))
@@ -162,6 +162,7 @@ function UIResText:Draw()
     AddLongString(self._Text)
     EndTextCommandDisplayText(Position.X, Position.Y)
 end
+
 
 function RenderText(Text, X, Y, Font, Scale, R, G, B, A, Alignment, DropShadow, Outline, WordWrap)
     Text = tostring(Text)
