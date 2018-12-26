@@ -10,6 +10,8 @@ Original NativeUI by Guad : https://github.com/Guad/NativeUI
 >## Version française / French Version
 ⚠️ Il s'agit d'un fork de la base de NativeUILUA de Frazzle ⚠️
 
+NB : Veuillez noter que la ressource est compatible avec le plugin EmmyLUA !
+
 CETTE VERSION CONTIENT EN PLUS DE LA VERSION ORIGINALE :
 
 - Diverses résolutions de bugs (comme les UIMenuColouredItem)
