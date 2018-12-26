@@ -1,5 +1,7 @@
 # NativeUI en LUA
 
+⚠ THIS VERSION IS NOT PORTABLE FOR ANOTHER RESOURCE ⚠
+
 Original post : https://github.com/FrazzIe/NativeUILua <p>
 Original NativeUI by Guad : https://github.com/Guad/NativeUI
 
