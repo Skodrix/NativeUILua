@@ -70,7 +70,13 @@
  [2.1.2]
  ...
 
+ --TODO Ajout d'un systeme d'actualisation de badge dynamique, (comme warmenu)
+ --TODO Ajout de badge custome possible.
+ --TODO Resoudre des problémes mineurs sur l'interface.
+ --TODO ...
 ]]--
+
+
 
 NativeUI = {}
 
