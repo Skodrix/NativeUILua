@@ -2,6 +2,9 @@ UIMenuHeritageWindow = setmetatable({}, UIMenuHeritageWindow)
 UIMenuHeritageWindow.__index = UIMenuHeritageWindow
 UIMenuHeritageWindow.__call = function() return "UIMenuWindow", "UIMenuHeritageWindow" end
 
+---New
+---@param Mum number
+---@param Dad number
 function UIMenuHeritageWindow.New(Mum, Dad)
 	if not tonumber(Mum) then Mum = 0 end
 	if not (Mum >= 0 and Mum <= 21) then Mum = 0 end
@@ -19,6 +22,8 @@ function UIMenuHeritageWindow.New(Mum, Dad)
 	return setmetatable(_UIMenuHeritageWindow, UIMenuHeritageWindow)
 end
 
+---SetParentMenu
+---@param Menu table
 function UIMenuHeritageWindow:SetParentMenu(Menu) -- required
 	if Menu() == "UIMenu" then
 		self.ParentMenu = Menu
@@ -27,6 +32,9 @@ function UIMenuHeritageWindow:SetParentMenu(Menu) -- required
 	end
 end
 
+---Offset
+---@param X number
+---@param Y number
 function UIMenuHeritageWindow:Offset(X, Y) -- required
 	if tonumber(X) or tonumber(Y) then
 		if tonumber(X) then
@@ -40,7 +48,9 @@ function UIMenuHeritageWindow:Offset(X, Y) -- required
 	end
 end
 
-function UIMenuHeritageWindow:Position(Y) -- required
+---Position
+---@param Y number
+function UIMenuHeritageWindow:Position(Y)
     if tonumber(Y) then
         self.Background:Position(self._Offset.X, 144 + Y + self._Offset.Y)
         self.MumSprite:Position(self._Offset.X + (self.ParentMenu.WidthOffset/2) + 25, 144 + Y + self._Offset.Y)
@@ -48,6 +58,9 @@ function UIMenuHeritageWindow:Position(Y) -- required
     end
 end
 
+---Index
+---@param Mum number
+---@param Dad number
 function UIMenuHeritageWindow:Index(Mum, Dad)
 	if not tonumber(Mum) then Mum = self.Mum end
 	if not (Mum >= 0 and Mum <= 21) then Mum = self.Mum end
@@ -61,6 +74,7 @@ function UIMenuHeritageWindow:Index(Mum, Dad)
 	self.DadSprite.TxtName = ((self.Dad < 21) and "male_"..self.Dad or "special_male_"..(tonumber(string.sub(Dad, 2, 2)) - 1))
 end
 
+---Draw
 function UIMenuHeritageWindow:Draw() -- required
 	self.Background:Size(431 + self.ParentMenu.WidthOffset, 228)
 	self.Background:Draw()
