@@ -84,8 +84,8 @@ function NativeUI.CreatePool()
     return MenuPool.New()
 end
 
-function NativeUI.CreateMenu(Title, Subtitle, X, Y, TxtDictionary, TxtName)
-    return UIMenu.New(Title, Subtitle, X, Y, TxtDictionary, TxtName)
+function NativeUI.CreateMenu(Title, Subtitle, X, Y, TxtDictionary, TxtName, Heading, R, G, B, A)
+    return UIMenu.New(Title, Subtitle, X, Y, TxtDictionary, TxtName, Heading, R, G, B, A)
 end
 
 function NativeUI.CreateItem(Text, Description)
