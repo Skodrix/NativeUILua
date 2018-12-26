@@ -1,11 +1,13 @@
 # NativeUI en LUA
 
-⚠ THIS VERSION IS NOT PORTABLE FOR ANOTHER RESOURCE ⚠
+⚠️ THIS VERSION IS NOT USABLE LIKE THE ORIGINAL CODE ⚠️
 
-Original post : https://github.com/FrazzIe/NativeUILua <p>
+Original code : https://github.com/FrazzIe/NativeUILua
+
 Original NativeUI by Guad : https://github.com/Guad/NativeUI
 
---------------------------------------------------------------
+
+>## Version française / French Version
 ⚠️ Il s'agit d'un fork de la base de NativeUILUA de Frazzle ⚠️
 
 CETTE VERSION CONTIENT EN PLUS DE LA VERSION ORIGINALE :
@@ -49,9 +51,14 @@ Pour toutes suggestions de features supplémentaires, n'hésitez pas à utiliser
 
 MERCI A TOUT CEUX QUI SUIVENT LES MODIFICATIONS DE CE FORK !
 
-# Contributeur
+>## Version Anglaise / English version
+⚠️ This is an fork of the base code of NativeUILUA ⚠️
+
+Work in progress . . .
+
+># Contributeur / Contributor
 
 - Frazzle
 - iTexZoz
 - Skodrix
-
+- Mathias (Traducteur / Translator)
