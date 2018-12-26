@@ -176,3 +176,57 @@ function print_table(node)
 
 	print(output_str)
 end
+
+
+function RenderText(Text, X, Y, Font, Scale, R, G, B, A, Alignment, DropShadow, Outline, WordWrap)
+	Text = tostring(Text)
+	X, Y = FormatXWYH(X, Y)
+	SetTextFont(Font or 0)
+	SetTextScale(1.0, Scale or 0)
+	SetTextColour(R or 255, G or 255, B or 255, A or 255)
+
+	if DropShadow then
+		SetTextDropShadow()
+	end
+	if Outline then
+		SetTextOutline()
+	end
+
+	if Alignment ~= nil then
+		if Alignment == 1 or Alignment == "Center" or Alignment == "Centre" then
+			SetTextCentre(true)
+		elseif Alignment == 2 or Alignment == "Right" then
+			SetTextRightJustify(true)
+			SetTextWrap(0, X)
+		end
+	end
+
+	if tonumber(WordWrap) then
+		if tonumber(WordWrap) ~= 0 then
+			WordWrap, _ = FormatXWYH(WordWrap, 0)
+			SetTextWrap(WordWrap, X - WordWrap)
+		end
+	end
+
+	BeginTextCommandDisplayText("STRING")
+	AddLongString(Text)
+	EndTextCommandDisplayText(X, Y)
+end
+
+
+function DrawRectangle(X, Y, Width, Height, R, G, B, A)
+	X, Y, Width, Height = X or 0, Y or 0, Width or 0, Height or 0
+	X, Y = FormatXWYH(X, Y)
+	Width, Height = FormatXWYH(Width, Height)
+	DrawRect(X + Width * 0.5, Y + Height * 0.5, Width, Height, tonumber(R) or 255, tonumber(G) or 255, tonumber(B) or 255, tonumber(A) or 255)
+end
+
+function DrawTexture(TxtDictionary, TxtName, X, Y, Width, Height, Heading, R, G, B, A)
+	if not HasStreamedTextureDictLoaded(tostring(TxtDictionary) or "") then
+		RequestStreamedTextureDict(tostring(TxtDictionary) or "", true)
+	end
+	X, Y, Width, Height = X or 0, Y or 0, Width or 0, Height or 0
+	X, Y = FormatXWYH(X, Y)
+	Width, Height = FormatXWYH(Width, Height)
+	DrawSprite(tostring(TxtDictionary) or "", tostring(TxtName) or "", X + Width * 0.5, Y + Height * 0.5, Width, Height, tonumber(Heading) or 0, tonumber(R) or 255, tonumber(G) or 255, tonumber(B) or 255, tonumber(A) or 255)
+end

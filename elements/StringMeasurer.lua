@@ -94,6 +94,8 @@ CharacterMap = {
 	['}'] = 6,
 }
 
+---MeasureString
+---@param str string
 function MeasureString(str)
 	local output = 0
 	for i = 1, GetCharacterCount(str), 1 do

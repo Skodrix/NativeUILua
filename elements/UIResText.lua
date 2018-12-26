@@ -2,6 +2,8 @@ UIResText = setmetatable({}, UIResText)
 UIResText.__index = UIResText
 UIResText.__call = function() return "Text" end
 
+---GetCharacterCount
+---@param str string
 function GetCharacterCount(str)
     local characters = 0
     for c in str:gmatch("[%z\1-\127\194-\244][\128-\191]*") do
@@ -13,6 +15,8 @@ function GetCharacterCount(str)
     return characters
 end
 
+---GetByteCount
+---@param str string
 function GetByteCount(str)
     local bytes = 0
 
@@ -34,6 +38,8 @@ function GetByteCount(str)
     return bytes
 end
 
+---AddLongStringForAscii
+---@param str string
 function AddLongStringForAscii(str)
     local maxbytelength = 99
     for i = 0, GetCharacterCount(str), 99 do
@@ -41,6 +47,8 @@ function AddLongStringForAscii(str)
     end
 end
 
+---AddLongStringForUtf8
+---@param str string
 function AddLongStringForUtf8(str)
     local maxbytelength = 99
     local bytecount = GetByteCount(str)
@@ -61,6 +69,8 @@ function AddLongStringForUtf8(str)
     AddTextComponentSubstringPlayerName(string.sub(str, startIndex, GetCharacterCount(str) - startIndex))
 end 
 
+---AddLongString
+---@param str string
 function AddLongString(str)
     local bytecount = GetByteCount(str)
     if bytecount == GetCharacterCount(str) then
@@ -70,6 +80,10 @@ function AddLongString(str)
     end
 end
 
+---MeasureStringWidthNoConvert
+---@param str string
+---@param font number
+---@param scale number
 function MeasureStringWidthNoConvert(str, font, scale)
     BeginTextCommandWidth("STRING")
     AddLongString(str)
@@ -78,12 +92,29 @@ function MeasureStringWidthNoConvert(str, font, scale)
     return EndTextCommandGetWidth(true)
 end
 
+---MeasureStringWidth
+---@param str string
+---@param font number
+---@param scale number
 function MeasureStringWidth(str, font, scale)
     return MeasureStringWidthNoConvert(str, font, scale) * 1920
 end
 
+---New
+---@param Text string
+---@param X number
+---@param Y number
+---@param Scale number
+---@param R number
+---@param G number
+---@param B number
+---@param A number
+---@param Font number
+---@param Alignment number
+---@param DropShadow number
+---@param Outline number
+---@param WordWrap number
 function UIResText.New(Text, X, Y, Scale, R, G, B, A, Font, Alignment, DropShadow, Outline, WordWrap)
-
 	local _UIResText = {
         _Text = tostring(Text) or "",
         X = tonumber(X) or 0,
@@ -99,6 +130,9 @@ function UIResText.New(Text, X, Y, Scale, R, G, B, A, Font, Alignment, DropShado
 	return setmetatable(_UIResText, UIResText)
 end
 
+---Position
+---@param X number
+---@param Y number
 function UIResText:Position(X, Y)
     if tonumber(X) and tonumber(Y) then
         self.X = tonumber(X)
@@ -108,6 +142,11 @@ function UIResText:Position(X, Y)
     end
 end
 
+---Colour
+---@param R number
+---@param G number
+---@param B number
+---@param A number
 function UIResText:Colour(R, G, B, A)
     if tonumber(R) and tonumber(G) and tonumber(B) and tonumber(A) then
         self._Colour.R = tonumber(R)
@@ -119,6 +158,8 @@ function UIResText:Colour(R, G, B, A)
     end
 end
 
+---Text
+---@param Text string
 function UIResText:Text(Text)
     if tostring(Text) and Text ~= nil then
         self._Text = tostring(Text)
@@ -127,6 +168,7 @@ function UIResText:Text(Text)
     end
 end
 
+---Draw
 function UIResText:Draw()
     local Position = self:Position()
     Position.X, Position.Y = FormatXWYH(Position.X, Position.Y)
@@ -161,40 +203,4 @@ function UIResText:Draw()
     BeginTextCommandDisplayText("STRING")
     AddLongString(self._Text)
     EndTextCommandDisplayText(Position.X, Position.Y)
-end
-
-
-function RenderText(Text, X, Y, Font, Scale, R, G, B, A, Alignment, DropShadow, Outline, WordWrap)
-    Text = tostring(Text)
-    X, Y = FormatXWYH(X, Y)
-    SetTextFont(Font or 0)
-    SetTextScale(1.0, Scale or 0)
-    SetTextColour(R or 255, G or 255, B or 255, A or 255)
-
-    if DropShadow then
-        SetTextDropShadow()
-    end
-    if Outline then
-        SetTextOutline()
-    end
-
-    if Alignment ~= nil then
-        if Alignment == 1 or Alignment == "Center" or Alignment == "Centre" then
-            SetTextCentre(true)
-        elseif Alignment == 2 or Alignment == "Right" then
-            SetTextRightJustify(true)
-            SetTextWrap(0, X)
-        end
-    end
-
-    if tonumber(WordWrap) then
-        if tonumber(WordWrap) ~= 0 then
-            WordWrap, _ = FormatXWYH(WordWrap, 0)
-            SetTextWrap(WordWrap, X - WordWrap)
-        end
-    end
-
-    BeginTextCommandDisplayText("STRING")
-    AddLongString(Text)
-    EndTextCommandDisplayText(X, Y)
 end

@@ -200,6 +200,9 @@ BadgeColour = {
 	end,
 }
 
+---GetBadgeTexture
+---@param Badge number
+---@param Selected table
 function GetBadgeTexture(Badge, Selected)
 	if BadgeTexture[Badge] then
 		return BadgeTexture[Badge](Selected)
@@ -208,6 +211,9 @@ function GetBadgeTexture(Badge, Selected)
 	end
 end
 
+---GetBadgeDictionary
+---@param Badge number
+---@param Selected table
 function GetBadgeDictionary(Badge, Selected)
 	if BadgeDictionary[Badge] then
 		return BadgeDictionary[Badge](Selected)
@@ -216,6 +222,9 @@ function GetBadgeDictionary(Badge, Selected)
 	end
 end
 
+---GetBadgeColour
+---@param Badge number
+---@param Selected table
 function GetBadgeColour(Badge, Selected)
 	if BadgeColour[Badge] then
 		return BadgeColour[Badge](Selected)
