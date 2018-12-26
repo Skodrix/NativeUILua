@@ -1,6 +1,7 @@
 MenuPool = setmetatable({}, MenuPool)
 MenuPool.__index = MenuPool
 
+---New
 function MenuPool.New()
     local _MenuPool = {
         Menus = {}
@@ -8,6 +9,12 @@ function MenuPool.New()
     return setmetatable(_MenuPool, MenuPool)
 end
 
+---AddSubMenu
+---@param Menu table
+---@param Text string
+---@param Description string
+---@param KeepPosition boolean
+---@param KeepBanner boolean
 function MenuPool:AddSubMenu(Menu, Text, Description, KeepPosition, KeepBanner)
     if Menu() == "UIMenu" then
         local Item = UIMenuItem.New(tostring(Text), Description or "")
@@ -35,12 +42,16 @@ function MenuPool:AddSubMenu(Menu, Text, Description, KeepPosition, KeepBanner)
     end
 end
 
+---Add
+---@param Menu table
 function MenuPool:Add(Menu)
     if Menu() == "UIMenu" then
         table.insert(self.Menus, Menu)
     end
 end
 
+---MouseEdgeEnabled
+---@param bool boolean
 function MenuPool:MouseEdgeEnabled(bool)
     if bool ~= nil then
         for _, Menu in pairs(self.Menus) do
@@ -49,6 +60,8 @@ function MenuPool:MouseEdgeEnabled(bool)
     end
 end
 
+---ControlDisablingEnabled
+---@param bool boolean
 function MenuPool:ControlDisablingEnabled(bool)
     if bool ~= nil then
         for _, Menu in pairs(self.Menus) do
@@ -57,6 +70,8 @@ function MenuPool:ControlDisablingEnabled(bool)
     end
 end
 
+---ResetCursorOnOpen
+---@param bool boolean
 function MenuPool:ResetCursorOnOpen(bool)
     if bool ~= nil then
         for _, Menu in pairs(self.Menus) do
@@ -65,6 +80,8 @@ function MenuPool:ResetCursorOnOpen(bool)
     end
 end
 
+---MultilineFormats
+---@param bool boolean
 function MenuPool:MultilineFormats(bool)
     if bool ~= nil then
         for _, Menu in pairs(self.Menus) do
@@ -73,6 +90,9 @@ function MenuPool:MultilineFormats(bool)
     end
 end
 
+---Audio
+---@param Attribute number
+---@param Setting table
 function MenuPool:Audio(Attribute, Setting)
     if Attribute ~= nil and Setting ~= nil then
         for _, Menu in pairs(self.Menus) do
@@ -83,6 +103,8 @@ function MenuPool:Audio(Attribute, Setting)
     end
 end
 
+---WidthOffset
+---@param offset number
 function MenuPool:WidthOffset(offset)
     if tonumber(offset) then
         for _, Menu in pairs(self.Menus) do
@@ -91,6 +113,8 @@ function MenuPool:WidthOffset(offset)
     end
 end
 
+---CounterPreText
+---@param str string
 function MenuPool:CounterPreText(str)
     if str ~= nil then
         for _, Menu in pairs(self.Menus) do
@@ -99,6 +123,8 @@ function MenuPool:CounterPreText(str)
     end
 end
 
+---DisableInstructionalButtons
+---@param bool boolean
 function MenuPool:DisableInstructionalButtons(bool)
     if bool ~= nil then
         for _, Menu in pairs(self.Menus) do
@@ -107,6 +133,8 @@ function MenuPool:DisableInstructionalButtons(bool)
     end
 end
 
+---MouseControlsEnabled
+---@param bool boolean
 function MenuPool:MouseControlsEnabled(bool)
     if bool ~= nil then
         for _, Menu in pairs(self.Menus) do
@@ -115,18 +143,21 @@ function MenuPool:MouseControlsEnabled(bool)
     end
 end
 
+---RefreshIndex
 function MenuPool:RefreshIndex()
     for _, Menu in pairs(self.Menus) do
         Menu:RefreshIndex()
     end
 end
 
+---ProcessMenus
 function MenuPool:ProcessMenus()
     self:ProcessControl()
     self:ProcessMouse()
     self:Draw()
 end
 
+---ProcessControl
 function MenuPool:ProcessControl()
     for _, Menu in pairs(self.Menus) do
         if Menu:Visible() then
@@ -135,6 +166,7 @@ function MenuPool:ProcessControl()
     end
 end
 
+---ProcessMouse
 function MenuPool:ProcessMouse()
     for _, Menu in pairs(self.Menus) do
         if Menu:Visible() then
@@ -143,6 +175,7 @@ function MenuPool:ProcessMouse()
     end
 end
 
+---Draw
 function MenuPool:Draw()
     for _, Menu in pairs(self.Menus) do
         if Menu:Visible() then
@@ -151,6 +184,7 @@ function MenuPool:Draw()
     end
 end
 
+---IsAnyMenuOpen
 function MenuPool:IsAnyMenuOpen()
     local open = false
     for _, Menu in pairs(self.Menus) do
@@ -162,6 +196,7 @@ function MenuPool:IsAnyMenuOpen()
     return open
 end
 
+---CloseAllMenus
 function MenuPool:CloseAllMenus()
     for _, Menu in pairs(self.Menus) do
         if Menu:Visible() then
@@ -171,6 +206,8 @@ function MenuPool:CloseAllMenus()
     end
 end
 
+---SetBannerSprite
+---@param Sprite table
 function MenuPool:SetBannerSprite(Sprite)
     if Sprite() == "Sprite" then
         for _, Menu in pairs(self.Menus) do
@@ -179,6 +216,8 @@ function MenuPool:SetBannerSprite(Sprite)
     end
 end
 
+---SetBannerRectangle
+---@param Rectangle table
 function MenuPool:SetBannerRectangle(Rectangle)
     if Rectangle() == "Rectangle" then
         for _, Menu in pairs(self.Menus) do
@@ -187,6 +226,8 @@ function MenuPool:SetBannerRectangle(Rectangle)
     end
 end
 
+---TotalItemsPerPage
+---@param Value number
 function MenuPool:TotalItemsPerPage(Value)
     if tonumber(Value) then
         for _, Menu in pairs(self.Menus) do
