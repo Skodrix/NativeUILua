@@ -2,6 +2,11 @@ UIMenuGridPanel = setmetatable({}, UIMenuGridPanel)
 UIMenuGridPanel.__index = UIMenuGridPanel
 UIMenuGridPanel.__call = function() return "UIMenuPanel", "UIMenuGridPanel" end
 
+---New
+---@param TopText string
+---@param LeftText string
+---@param RightText string
+---@param BottomText string
 function UIMenuGridPanel.New(TopText, LeftText, RightText, BottomText)
 	_UIMenuGridPanel = {
 		Data = {
@@ -22,6 +27,8 @@ function UIMenuGridPanel.New(TopText, LeftText, RightText, BottomText)
 	return setmetatable(_UIMenuGridPanel, UIMenuGridPanel)
 end
 
+---SetParentItem
+---@param Item table
 function UIMenuGridPanel:SetParentItem(Item) -- required
 	if Item() == "UIMenuItem" then
 		self.ParentItem = Item
@@ -30,6 +37,8 @@ function UIMenuGridPanel:SetParentItem(Item) -- required
 	end
 end
 
+---Enabled
+---@param Enabled boolean
 function UIMenuGridPanel:Enabled(Enabled)
 	if type(Enabled) == "boolean" then
 		self.Data.Enabled = Enabled
@@ -38,6 +47,9 @@ function UIMenuGridPanel:Enabled(Enabled)
 	end
 end
 
+---CirclePosition
+---@param X number
+---@param Y number
 function UIMenuGridPanel:CirclePosition(X, Y)
     if tonumber(X) and tonumber(Y) then
         self.Circle.X = (self.Grid.X + 20) + ((self.Grid.Width - 40) * ((X >= 0.0 and X <= 1.0) and X or 0.0)) - (self.Circle.Width/2)
@@ -47,7 +59,9 @@ function UIMenuGridPanel:CirclePosition(X, Y)
     end
 end
 
-function UIMenuGridPanel:Position(Y) -- required
+---Position
+---@param Y number
+function UIMenuGridPanel:Position(Y)
     if tonumber(Y) then
         local ParentOffsetX, ParentOffsetWidth = self.ParentItem:Offset().X, self.ParentItem:SetParentMenu().WidthOffset
         
@@ -65,6 +79,9 @@ function UIMenuGridPanel:Position(Y) -- required
     end
 end
 
+---UpdateParent
+---@param X number
+---@param Y number
 function UIMenuGridPanel:UpdateParent(X, Y)
 	local _, ParentType = self.ParentItem()
     self.Data.Value = {X = X, Y = Y}
@@ -93,6 +110,7 @@ function UIMenuGridPanel:UpdateParent(X, Y)
 	end
 end
 
+---Functions
 function UIMenuGridPanel:Functions()
     local SafeZone = {X = 0, Y = 0}
     if self.ParentItem:SetParentMenu().Settings.ScaleWithSafezone then
@@ -129,7 +147,8 @@ function UIMenuGridPanel:Functions()
     end
 end
 
-function UIMenuGridPanel:Draw() -- required
+---Draw
+function UIMenuGridPanel:Draw()
     if self.Data.Enabled then
         self.Background:Size(431 + self.ParentItem:SetParentMenu().WidthOffset, 275)
         self.Background:Draw()
