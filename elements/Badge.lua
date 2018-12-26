@@ -35,7 +35,7 @@ BadgeTexture = {
 		return "mp_medal_gold"
 	end,
 	[3] = function()
-		return "medal_silver"
+		return "mp_medal_silver"
 	end,
 	[4] = function()
 		return "mp_alerttriangle"
@@ -152,9 +152,9 @@ BadgeTexture = {
 	end,
 	[23] = function(Selected)
 		if Selected then
-			return "mp_specitem_cash"
+			return "mp_specitem_coke_black"
 		else
-			return "mp_specitem_cash_black"
+			return "mp_specitem_coke"
 		end
 	end,
 }

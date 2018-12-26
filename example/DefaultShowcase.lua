@@ -49,6 +49,7 @@ function AddMenuFoodCount(menu)
 end
 
 function AddMenuCook(menu)
+    local badge = 1
     local newitem = NativeUI.CreateItem("Cook!", "Cook the dish with the appropriate ingredients and ketchup.")
     newitem:SetLeftBadge(BadgeStyle.Star)
     newitem:SetRightBadge(BadgeStyle.Tick)
@@ -60,6 +61,11 @@ function AddMenuCook(menu)
                 string = "You have ordered ~r~" .. quantity .. " ~b~"..dish.."(s)~w~ ~r~without~w~ ketchup."
             end
             ShowNotification(string)
+            badge = badge + 1
+            if(badge == 23)then
+                badge = 0
+            end
+            newitem:SetRightBadge(badge)
         end
     end
     menu.OnIndexChange = function(sender, index)
@@ -86,7 +92,7 @@ _menuPool:RefreshIndex()
 
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(0)
+        Citizen.Wait(1)
         _menuPool:ProcessMenus()
         if IsControlJustPressed(1, 51) then
             mainMenu:Visible(not mainMenu:Visible())
