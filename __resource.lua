@@ -7,6 +7,7 @@ version '2.1.0'
 
 client_scripts {
   "Utils.lua",
+
   "elements/UIResRectangle.lua",
   "elements/UIResText.lua",
   "elements/Sprite.lua",
@@ -14,6 +15,7 @@ client_scripts {
   "elements/Badge.lua",
   "elements/Colours.lua",
   "elements/ColoursPanel.lua",
+
   "items/UIMenuItem.lua",
   "items/UIMenuCheckboxItem.lua",
   "items/UIMenuListItem.lua",
@@ -21,13 +23,18 @@ client_scripts {
   "items/UIMenuSliderHeritageItem.lua",
   "items/UIMenuColouredItem.lua",
   "items/UIMenuprogressItem.lua",
+
   "windows/UIMenuHeritageWindow.lua",
+
   "panels/UIMenuGridPanel.lua",
   "panels/UIMenuColourPanel.lua",
   "panels/UIMenuPercentagePanel.lua",
+
   "utils/UITimerBars.lua",
+
   "UIMenu.lua",
   "MenuPool.lua",
   "NativeUI.lua",
+
   "MenuExample.lua",
 }

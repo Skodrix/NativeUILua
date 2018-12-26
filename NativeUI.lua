@@ -72,6 +72,8 @@
 
 ]]--
 
+NativeUI = {}
+
 function NativeUI.CreatePool()
     return MenuPool.New()
 end
