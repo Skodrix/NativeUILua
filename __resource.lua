@@ -35,5 +35,5 @@ client_scripts {
 
   "NativeUI.lua",
 
-  "MenuExample.lua",
+  "_test/MenuExample.lua",
 }
